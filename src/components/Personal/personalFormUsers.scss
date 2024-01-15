@@ -1,0 +1,149 @@
+.form-create-user {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	div,
+	label,
+	input,
+	p {
+		font-size: 1.5rem;
+		letter-spacing: 0.1rem;
+	}
+	&__file {
+		opacity: 0;
+	}
+	&__file-button {
+		// opacity: 0;
+		width: 80%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		justify-content: space-between;
+		align-items: center;
+		text-align: center;
+		transition: all 0.3s ease 0s;
+		border: 0.1rem solid #cccccc;
+		border-radius: 3.5rem;
+		font-size: 2rem !important;
+		padding: 2.6rem 3.3rem;
+		background: $gr_blue_white;
+		cursor: pointer;
+		&:hover {
+			background-color: $color_after_gradient;
+			box-shadow: 0px 2rem 2rem $color_after_gradient;
+		}
+	}
+	&__file-preview {
+		min-height: 20rem;
+	}
+	&__fullName {
+		width: 100%;
+	}
+	&__position {
+		width: 100%;
+	}
+	&__discription {
+		width: 100%;
+	}
+	&__btn {
+		display: inline !important;
+		width: 80%;
+		margin: 0 auto;
+		text-align: center;
+		margin-bottom: 2rem;
+		color: inherit !important;
+	}
+}
+
+.createCardUser {
+	color: inherit !important;
+	padding: 1.5rem 2.5rem;
+	flex: 0 0 45rem;
+	min-height: 65rem;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0rem 0rem 3rem rgb(154 154 154 / 60%);
+	border-radius: 2rem;
+	position: relative;
+	top: 0;
+	left: 0;
+	transition: all 0.6s ease 0s;
+	&::before {
+		content: " ";
+		position: absolute;
+		left: 0;
+		top: 0;
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		background: $gr_white-blue;
+		box-shadow: inset 0rem 0rem 3rem rgb(154 154 154 / 60%);
+		border-radius: 2rem;
+		filter: blur(0.2rem);
+	}
+	&__block{
+		display: flex;
+
+	}
+	&__active {
+		cursor: pointer;
+		transition: all 0.3s ease 0s;
+		filter: blur(0.05rem);
+		&:hover {
+			background: $color_title;
+			filter: blur(0rem);
+			transform: scale(1.05);
+		}
+		&::before {
+			content: "";
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 2;
+			background: rgba(164, 169, 173, 0.95);
+			filter: blur(1rem);
+		}
+	}
+	&__icon {
+		width: 25rem;
+		height: 25rem;
+		color: rgba(42, 42, 42, 0.7);
+		filter: drop-shadow(0.3rem 0.3rem 1rem rgb(254, 254, 254)) blur(0.05rem);
+		position: absolute;
+		z-index: 3;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		transition: all 0.3s ease 0s;
+	}
+
+	&__avatar {
+		position: relative;
+		min-height: 40%;
+		margin: 0 0 2rem 0;
+	}
+	&__img {
+		background-color: transparent;
+		border-top-left-radius: 2rem;
+		border-top-right-radius: 2rem;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+	&__content {
+		flex: 1 1 auto;
+		min-height: 40%;
+		display: flex;
+		flex-direction: column;
+
+		margin: 1.5rem 2.5rem 3rem;
+	}
+	&__position {
+		margin: 2.4rem 0;
+	}
+}

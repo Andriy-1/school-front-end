@@ -1,0 +1,22 @@
+.link-error {
+	height: 70vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 8rem;
+ &::after{
+	content: '';
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	background: $gr_blue-white;
+	
+ }
+	&__title {
+		font-size: 4.5rem;
+	}
+}

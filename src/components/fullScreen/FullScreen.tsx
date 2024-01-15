@@ -1,0 +1,28 @@
+import React from 'react';
+
+const videoMp4 = require('../../img/video_new.mp4');
+
+const FullScreen: React.FC = () => {
+
+	return (
+		<section className="fullscreen">
+			<div className="fullscreen__container">
+				<video className="fullscreen__video" autoPlay muted loop id="myVideo">
+					<source src={videoMp4} />
+				</video>
+			</div>
+			<div className="container">
+				<div className="fullscreen__block-content">
+					<h1 className="fullscreen__title title">
+						<span>Вітаємо у світі дітей, знань</span> і можливостей в Копачинській гімназії!
+					</h1>
+					<p className="fullscreen__subtitle">
+						Ласкаво просимо на сторінку нашої навчальної установи, де кожна дитина може розкрити свій потенціал та реалізувати свої найзаповітніші мрії. Копачинська гімназія - це не просто школа, але й особливе місце, де навчання переплітається з вихованням, а ростання здійснюється разом з друзями та вчителями.
+					</p>
+				</div>
+			</div>
+		</section>
+	);
+};
+
+export default FullScreen;
