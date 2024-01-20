@@ -65,6 +65,51 @@ body {
 		//	overflow: hidden;
 	}
 }
+.black-color{
+	transition: all 0.3s ease 0s;
+	a{
+		color: transparentize($black-transparent, 0.13) !important;
+	}
+	:hover {
+		color: rgb(0, 0, 0);
+		text-shadow: 0.0rem 0.0rem 0.6rem rgba(255, 255, 255, 0.8);
+		.arrow-global {
+			color: rgb(255, 255, 255);
+			transform: rotate(-100deg);
+		}
+	}
+}
+.white-color{
+	a{
+		color: transparentize($white-transparent, 0.02) !important;
+		text-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.8);
+	}
+	:hover {
+		color: rgb(255, 255, 255);
+		text-shadow: 0rem 0rem 0.6rem rgba(119, 222, 238, 0.6);
+		.arrow-global {
+			color: rgb(255, 255, 255);
+			transform: rotate(-100deg);
+		}
+		
+	}
+}
+.white-color-logo{
+	g{
+		fill: transparentize($white-transparent, 0.02) !important;
+		text-shadow: 0rem 0rem 0.6rem rgba(119, 222, 238, 0.6);
+	}
+}
+.global-icon{
+	display: none;
+	@media (max-width:$md3+px){
+		  display: block;
+		  :hover{
+			color: #fff;
+			text-shadow: none !important;
+		  }
+	}
+}
 //</ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
 //<ОБОЛОЧКА>===========================================================================================================
 .wrapper {
@@ -1065,6 +1110,9 @@ body {
 	0% {
 		opacity: 0;
 		transform: translateY(-100px);
+	}
+	65%{
+		opacity: 0.2;
 	}
 	100% {
 		opacity: 1;

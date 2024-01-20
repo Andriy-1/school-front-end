@@ -124,6 +124,7 @@
 	}
 	&__svg{
 		width: 40px;
+		transition: all 0.3s ease 0s;
 		@media (max-width:$md3+px){
 			 width: 30px; 
 		}
@@ -149,30 +150,10 @@
 		}
 		
 	}
-	&__black{
-		a{
-			color: transparentize($black-transparent, 0.02);
-			text-shadow: 0.2rem 0.2rem 0.6rem rgba(255, 255, 255, 0.8);
-		}
-	}
-	&__white{
-		a{
-			color: transparentize($white-transparent, 0.02);
-			text-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.8);
-		}
-	}
-
 	&__item {
 		
 		font-size: 1.9rem;
-		:hover {
-			color: rgb(255, 255, 255);
-			text-shadow: 0rem 0rem 0.6rem rgba(119, 222, 238, 0.6);
-			.arrow-global {
-				color: rgb(255, 255, 255);
-				transform: rotate(-100deg);
-			}
-		}
+		
 		@media (max-width:$md3+px){
 			padding: 1rem 0 1rem 0; 
 		}
@@ -251,6 +232,13 @@
 			transition: all 0.4s ease-in-out 0s;
 			width: 100%;
 		}
+	}
+}
+#sub-menu-color{
+	box-shadow: none !important;
+	a {
+		color: transparentize($white-transparent, 0.15) !important;
+		box-shadow: none !important;
 	}
 }
 @keyframes submenu {

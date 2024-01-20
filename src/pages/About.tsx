@@ -14,7 +14,7 @@ import { selectAuth } from '../redux/auth/select';
 import { Helmet } from 'react-helmet';
 
 const About: React.FC = () => {
-	const defaroultData = useAppSelector(selectDefaultData);
+	const defaultData = useAppSelector(selectDefaultData);
 	const items = useAppSelector(selectUsers);
 	const isAuth = useAppSelector(selectAuth);
 	useEffect(() => {

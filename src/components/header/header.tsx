@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { TbSchool } from 'react-icons/tb';
 import { BiNews, BiHome } from 'react-icons/bi';
 import { TiContacts } from 'react-icons/ti';
@@ -10,25 +10,43 @@ import { BsPeople } from 'react-icons/bs';
 import { logout } from '../../redux/auth/slice';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { selectAuth, selectAuthDataUser } from '../../redux/auth/select';
+import classNames from 'classnames';
 
 const Header = () => {
 	const dispatch = useAppDispatch();
 	const isAuth = useAppSelector(selectAuth);
 	const fullName = useAppSelector(selectAuthDataUser);
-	const {pathname} = useLocation();
+	const { pathname } = useLocation();
 
 	const logoutClick = () => {
 		dispatch(logout());
 		localStorage.removeItem('token');
 	};
-	console.log(pathname);
+	const logoChangeColor = () => {
+		if (pathname === '/') {
+			return false;
+		} else if (pathname === '/about') {
+			return false;
+		} else if (pathname === '/news') {
+			return false;
+		}
+		else if (pathname === '/contacts') {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	const colorChangeClass = classNames({
+		'white-color': pathname === '/',
+		'black-color': pathname !== '/'
+	});
 
 	return (
 		<header className="header">
 			<div className="header__controll controll ">
 				<div className="header__logo logo">
 					<Link to="/" className="logo__box">
-						<svg className="logo__svg" viewBox="0 0 37.23404255319149 41.260343980563064">
+						<svg className={classNames('logo__svg', { 'white-color-logo': logoChangeColor() })} viewBox="0 0 37.23404255319149 41.260343980563064">
 							<g transform="translate(-2.1465282340366962, -0.13366743314275273) scale(0.6488700013198418)" className="css-vkoj2a"
 								fill="#74dbef">
 								<g xmlns="http://www.w3.org/2000/svg">
@@ -52,31 +70,31 @@ const Header = () => {
 				<div className="header__row ">
 					<div className="header__items items">
 						<nav>
-							<ul className="items__menu items__white">
+							<ul className={`items__menu ${colorChangeClass}`} >
 								<li className="items__item">
 									<Link to={'/'}><span>Головна</span>
-										{/* <BiHome className="global-icon" /> */}
+										<BiHome className="global-icon" />
 									</Link>
 
 								</li>
 								<li className="items__item">
 									<Link to="/about"><span>Про нас</span>
-										{/* <BsPeople className="global-icon" /> */}
+										<BsPeople className="global-icon" />
 									</Link>
 
 								</li>
 								<li className="items__item">
 									<Link to={'/news'}>
 										<span>Новини</span>
-										{/* <BiNews className="global-icon" /> */}
+										<BiNews className="global-icon" />
 									</Link>
 								</li>
 								<li className="items__item">
 									<Link to="#">
 										<span>Освіта</span>
-										{/* <TbSchool className="global-icon" /> */}
+										<TbSchool className="global-icon" />
 									</Link>
-									<ul className="sub-menu">
+									<ul id='sub-menu-color' className="sub-menu">
 										<li className="sub-menu__item">
 											<Link to="/education/timetable">Розкалад уроків</Link>
 										</li>
@@ -95,7 +113,7 @@ const Header = () => {
 									<Link to="/document">
 										<span>Документи</span>
 
-										{/* <HiOutlineDocumentText className="global-icon" /> */}
+										<HiOutlineDocumentText className="global-icon" />
 									</Link>
 									{/* <ul className="sub-menu">
                   <li className="sub-menu__item">
@@ -116,14 +134,14 @@ const Header = () => {
 								<li className="items__item">
 									<Link to="/contacts">
 										<span>Контакти</span>
-										{/* <TiContacts className="global-icon" /> */}
+										<TiContacts className="global-icon" />
 									</Link>
 								</li>
 							</ul>
 						</nav>
 					</div>
 				</div>
-				<div className="controll__box ">
+				<div className={`controll__box ${colorChangeClass} `}>
 					<a className="controll__phone" href="tel:+38(096)932-40-34">
 						Зв'язатись
 					</a>
