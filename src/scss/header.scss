@@ -1,5 +1,5 @@
 .header {
-	background-color: rgba(34, 49, 66,0.7);
+	// background-color: rgba(34, 49, 66,0.7);
 	width: 100%;
 	position: sticky;
 	top: 0;
@@ -9,19 +9,18 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		gap: 2rem;
 	}
 
 	&__row {
 		@media (max-width: 768px) {
 			position: fixed;
+			width: 100%;
 			bottom: 0;
 			left: 0;
 			z-index: 50;
+			background-color: rgba(34, 49, 66,0.7);
 		}
-		position: relative;
-		width: 100%;
-
-		background-color: rgba(34, 49, 66,0.7);
 	}
 
 	&__logo {
@@ -45,8 +44,9 @@
 }
 
 .controll {
-	padding: 1rem 2rem 1rem 2rem;
+	padding: 1rem 1rem 0rem 1rem;
 	font-size: 1.8rem;
+	background-color: transparent;
 	a {
 		color: white;
 	}
@@ -103,6 +103,9 @@
 .logo {
 	&__box {
 		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
 		flex-wrap: wrap;
 	}
 
@@ -119,6 +122,12 @@
 		height: 6.5rem;
 		margin: 0 0.5rem 0 1.2rem;
 	}
+	&__svg{
+		width: 40px;
+		@media (max-width:$md3+px){
+			 width: 30px; 
+		}
+	}
 }
 
 .items {
@@ -129,6 +138,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-wrap: wrap;
+		gap: 3rem;
 		transition: all 0.4s ease-in-out 0s;
 		@media (max-width:#{$md3 + px}){
 			display: flex;
@@ -137,11 +147,23 @@
 			align-items: center;
 			 justify-content: space-between; 
 		}
+		
+	}
+	&__black{
+		a{
+			color: transparentize($black-transparent, 0.02);
+			text-shadow: 0.2rem 0.2rem 0.6rem rgba(255, 255, 255, 0.8);
+		}
+	}
+	&__white{
+		a{
+			color: transparentize($white-transparent, 0.02);
+			text-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.8);
+		}
 	}
 
 	&__item {
-		margin: 0 5rem 0 0;
-		padding: 1rem 0 1.8rem 0;
+		
 		font-size: 1.9rem;
 		:hover {
 			color: rgb(255, 255, 255);
@@ -151,12 +173,16 @@
 				transform: rotate(-100deg);
 			}
 		}
+		@media (max-width:$md3+px){
+			padding: 1rem 0 1rem 0; 
+		}
 		a {
 			display: inline-flex;
 			align-items: center;
-			color: transparentize($white-transparent, 0.1);
+			// color: transparentize($black-transparent, 0.02);
 			font-weight: 700;
 			transition: all 0.4s ease-in-out 0s;
+		
 		}
 
 		@media (max-width:#{$md3 + px}){

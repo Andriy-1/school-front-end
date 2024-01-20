@@ -6,11 +6,10 @@ const FullScreen: React.FC = () => {
 
 	return (
 		<section className="fullscreen">
-			<div className="fullscreen__container">
-				<video className="fullscreen__video" autoPlay muted loop id="myVideo">
+				<video className="fullscreen__video video" autoPlay muted loop id="myVideo">
 					<source src={videoMp4} />
 				</video>
-			</div>
+					<div className="video__blur"></div>
 			<div className="container">
 				<div className="fullscreen__block-content">
 					<h1 className="fullscreen__title title">
