@@ -32,7 +32,7 @@ const Home: React.FC = () => {
 		<>
 			<FullScreen />
 			<Helmet>
-				<title>Копачинська гімназія - Головна</title>
+				<title>Копачинці - Головна</title>
 			</Helmet>
 			<Title />
 			<Card photoWebp={photoWebpOne} photoJpg={photoJpgOne} text={defaultData[0]} title={defaultData[1]} />
