@@ -11,20 +11,13 @@ import { MdOutlineClose } from "react-icons/md";
 
 const CardGaller: React.FC<cardGallery> = ({ status, paginationCount, items, isAuth }) => {
 	const dispatch = useAppDispatch();
-	const [isActive, setIsActive] = React.useState<boolean>(false)
-	const [currentItem, setCurrentItem] = React.useState<string>("")
-
+	const [isPopupOpen, setPopupOpen] = React.useState(false);
+	const [currentItem, setCurrentItem] = React.useState<string>("");
 	const [itemOffset, setItemOffset] = React.useState(0);
 	const itemsPerPage = 9;
 	const endOffset = itemOffset + itemsPerPage;
 	const currentItems = status === 'success' && Array.isArray(items) ? items.slice(itemOffset, endOffset) : [];
 
-	const currentClickedPhoto = (photo: string, isActive: boolean) => {
-		setIsActive(!isActive);
-		setCurrentItem(photo);
-	}
-
-	const [isPopupOpen, setPopupOpen] = React.useState(false);
 
 	const openPopup = (photo: string) => {
 		setPopupOpen(true);
@@ -36,8 +29,6 @@ const CardGaller: React.FC<cardGallery> = ({ status, paginationCount, items, isA
 	};
   
 	const handleOverlayClick = (event: any) => {
-		console.log('event',event);
-		
 	  if (event.target.className === 'popup__content') {
 		closePopup();
 	  }
