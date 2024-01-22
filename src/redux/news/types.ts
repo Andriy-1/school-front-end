@@ -10,9 +10,11 @@ export type NewsItem = {
 export interface NewsSliceState {
   items: AllData[] | null;
   status: string;
+  likeCount: number;
   viewsCount: number;
   views: [number?];
-  validate: Validate;
+	validate: Validate;
+	isLiked: boolean;
 }
 
 export type getIdStorage = {

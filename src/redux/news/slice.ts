@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AllData } from '../../components/types';
-import { fetchCreateNews, fetchNews } from './thunk';
+import { fetchCreateNews, fetchNews, fetchUpdateNewsLikes } from './thunk';
 import { getIdStorage, NewsSliceState } from './types';
 
 const initialState: NewsSliceState = {
   items: [],
   status: 'loading',
+  likeCount: 0,
   viewsCount: 0,
   views: [],
   validate: {},
+  isLiked: false,
 };
 
 export const newsSlice = createSlice({
@@ -26,6 +28,25 @@ export const newsSlice = createSlice({
     },
     setViewsCount: (state) => {
       (localStorage as any).setItem('viewsNewsCount', JSON.stringify(state.views));
+    },
+    setLikes: (state, action: PayloadAction<any>) => {
+      const { id, isLiked } = action.payload;
+      state.isLiked = isLiked;
+      if (state.items !== null && state.items !== undefined) {
+        const index = state.items.findIndex((item) => item.id === id);
+
+        if (index !== -1) {
+          const updatedItem = {
+            ...state.items[index],
+            likecount: state.items[index]?.likecount ?? 0,
+          };
+
+          updatedItem.likecount = isLiked ? updatedItem.likecount - 1 : updatedItem.likecount + 1;
+
+          state.items = [...state.items];
+          state.items[index] = updatedItem;
+        }
+      }
     },
   },
 
@@ -88,8 +109,19 @@ export const newsSlice = createSlice({
         });
       }
     });
+    //===================================================================================================================================
+    builder.addCase(fetchUpdateNewsLikes.pending, (state) => {
+      //   state.status = 'loading';
+    });
+    builder.addCase(fetchUpdateNewsLikes.fulfilled, (state, action: PayloadAction<AllData[]>) => {
+      console.log('update', action.payload);
+      //   state.status = 'success';
+    });
+    builder.addCase(fetchUpdateNewsLikes.rejected, (state) => {
+      state.status = 'error';
+    });
   },
 });
 
-export const { setItems, setViews, setViewsCount, setValid } = newsSlice.actions;
+export const { setItems, setViews, setViewsCount, setValid, setLikes } = newsSlice.actions;
 export default newsSlice.reducer;

@@ -18,6 +18,23 @@ export const fetchUpdateNews = createAsyncThunk<any, any, { state: RootState }>(
     return data;
   },
 );
+export const fetchUpdateNewsLikes = createAsyncThunk<any, any, { state: RootState }>(
+  'news/fetchUpdateNewsLikes',
+	async ({ id, isLiked }, { rejectWithValue }) => { 
+    return await instanse
+      .patch<any>(`/posts/likes/${id}`, {isLiked})
+      .then(({ data }) => {
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+        if (!error.response) {
+          throw error;
+        }
+        return rejectWithValue(error.response.data);
+      });
+  },
+);
 export const fetchCreateNews = createAsyncThunk<any, any, { state: RootState }>(
   'news/fetchCreateNews',
   async (params, { rejectWithValue }) => {

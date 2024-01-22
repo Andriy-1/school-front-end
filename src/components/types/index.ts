@@ -25,11 +25,12 @@ export type AllData = {
   id: number;
   title: string;
   text: string;
-  viewsCount: number;
-  likeCount: number;
+  viewscount?: number;
+  likecount?: number;
   user_id: number;
   imageUrl: string;
-  created_at?: DataView;
+	created_at?: DataView;
+	updateLikes: void;
   //   user: User;
   //   createdAt?: string;
   //   updatedAt?: string;

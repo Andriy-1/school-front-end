@@ -11,7 +11,7 @@ import NewsSkeleton from '../components/news/Skeleton';
 
 import { AllData } from '../components/types';
 
-import { fetchCreateNews, fetchNews } from '../redux/news/thunk';
+import { fetchCreateNews, fetchNews, fetchUpdateNewsLikes } from '../redux/news/thunk';
 import { selectNews } from '../redux/news/select';
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import { setValid } from '../redux/news/slice';
@@ -40,14 +40,13 @@ const News: React.FC = () => {
 		},
 		mode: 'onChange',
 	});
-
+	
 	React.useEffect(() => {
 		dispatch(fetchNews());
-
 		window.scroll(0, 0);
 	}, [dispatch]);
 
-
+	
 	const handleClickBtn = () => {
 		dispatch(fetchNews());
 		setClickBnt(true);

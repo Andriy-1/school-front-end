@@ -3,17 +3,19 @@ import { BiDotsVerticalRounded } from 'react-icons/bi';
 import { RiShareForwardLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 
+import { LuEye } from "react-icons/lu";
 import { FacebookShareButton, FacebookIcon, ViberShareButton, ViberIcon, TelegramIcon, TelegramShareButton } from 'react-share';
 import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
 import { selectAuth } from '../../redux/auth/select';
 import { selectNews } from '../../redux/news/select';
-import { setViews, setViewsCount } from '../../redux/news/slice';
-import { fetchDeleteNews, fetchNews } from '../../redux/news/thunk';
+import { setLikes, setViews, setViewsCount } from '../../redux/news/slice';
+import { fetchDeleteNews, fetchNews, fetchUpdateNewsLikes } from '../../redux/news/thunk';
 import { AllData } from '../types';
 import { baseUrl } from '../../api';
 import { Helmet } from 'react-helmet';
+import classNames from 'classnames';
 
-const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likeCount, created_at }) => {
+const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likecount, viewscount, created_at }) => {
 	const dispatch = useAppDispatch();
 	const [click, setClick] = React.useState(false);
 	const isAuth = useAppSelector(selectAuth);
@@ -37,7 +39,7 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likeCount, cre
 				localStorage.length &&
 				JSON.parse((localStorage as any).getItem('viewsNewsCount'))?.includes(id)
 			) {
-				
+
 				return;
 			} else {
 				if (!views.length || !views.includes(id)) {
@@ -54,6 +56,8 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likeCount, cre
 			}
 		};
 	}, [dispatch, id]);
+
+
 
 	const onClickShare: any = () => {
 		return (
@@ -85,6 +89,38 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likeCount, cre
 			dispatch(fetchNews());
 		}, 100);
 	};
+	//========================================================================================================================================================
+	// Стан лайків
+	const [isLiked, setIsLiked] = React.useState<boolean>(false);
+	const updateLikes = React.useCallback(
+		(id: number, isLiked: boolean): void => {
+			dispatch(fetchUpdateNewsLikes({ id, isLiked }))
+		},
+		[dispatch],
+	)
+	React.useEffect(() => {
+		const likedPosts: number[] = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+		const postIsLiked: boolean = likedPosts.includes(id);
+		setIsLiked(postIsLiked);
+	}, [id]);
+
+	const handleLikeClick = (postId: any) => {
+		const likedPosts: number[] = JSON.parse(localStorage.getItem('likedPosts') || '[]');
+		const postIsLiked: boolean = likedPosts.includes(postId);
+		if (likedPosts.includes(postId)) {
+			const updatedLikedPosts: number[] = likedPosts.filter((id) => id !== postId);
+			localStorage.setItem('likedPosts', JSON.stringify(updatedLikedPosts));
+		} else {
+			const updatedLikedPosts: number[] = [...likedPosts, postId];
+			localStorage.setItem('likedPosts', JSON.stringify(updatedLikedPosts));
+		}
+		setIsLiked(!postIsLiked);
+		dispatch(setLikes({ id, isLiked }))
+		updateLikes(id, isLiked);
+	};
+
+	//bnt likes
+
 	return (
 		<section className="section-news-card">
 			<Helmet>
@@ -125,9 +161,9 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likeCount, cre
 									<span>{[mouthNameBig, '-', day, '-', year]}</span>
 									{/* <span> {[' ', dataHourse]}</span> */}
 								</div>
-								{/* <div className="info-card-news__views">
-									<span>{viewsCount}</span>
-									<svg
+								<div className="info-card-news__views">
+
+									{/* <svg
 										className="info-card-news__svg svg-views-news-dims"
 										viewBox="0 0 32 32"
 										version="1.1"
@@ -136,13 +172,18 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likeCount, cre
 										<path
 											strokeWidth="1.19"
 											d="M30.564 15.506c-9.59-10.957-19.543-10.957-29.129 0-0.115 0.131-0.185 0.305-0.185 0.494s0.070 0.363 0.186 0.495l-0.001-0.001c4.793 5.479 9.693 8.256 14.563 8.256h0.001c4.869 0 9.771-2.777 14.564-8.256 0.116-0.131 0.186-0.304 0.186-0.494s-0.070-0.363-0.187-0.495l0.001 0.001zM3.004 16c8.704-9.626 17.291-9.622 25.992 0-8.703 9.621-17.291 9.621-25.992 0zM16 11.25c-2.623 0-4.75 2.127-4.75 4.75s2.127 4.75 4.75 4.75c2.623 0 4.75-2.127 4.75-4.75v0c-0.003-2.622-2.128-4.747-4.75-4.75h-0zM16 19.25c-1.795 0-3.25-1.455-3.25-3.25s1.455-3.25 3.25-3.25c1.795 0 3.25 1.455 3.25 3.25v0c-0.002 1.794-1.456 3.248-3.25 3.25h-0z"></path>
-									</svg>
-								</div> */}
+									</svg> */}
+									<LuEye
+										stroke='black'
+										className='info-card-news__svg svg-views-news-dims' />
+									<span>{viewscount}</span>
+								</div>
 							</div>
-							<div className="info-card-news__likes">
-								<span>{likeCount}</span>
-								<svg
-									className="info-card-news__svg svg-like-news-dims"
+							<div onClick={() => { handleLikeClick(id) }} className="info-card-news__likes">
+								<span>{likecount ? likecount : ''}</span>
+
+								{/* <svg
+									className={classNames("info-card-news__svg svg-like-news-dims", { 'svg-like-active': isLiked })}
 									viewBox="0 -3.71 75.17 75.17"
 									xmlns="http://www.w3.org/2000/svg">
 									<path
@@ -156,7 +197,11 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likeCount, cre
 										strokeLinejoin="round"
 										strokeWidth="3"
 									/>
-								</svg>
+								</svg> */}
+								<button className={classNames('like',{'liked':isLiked},{'unliked':!isLiked}) }>
+									<span className="like-icon like-icon-state" aria-label="state">
+									</span>
+								</button>
 							</div>
 						</div>
 					</div>

@@ -158,6 +158,7 @@ body {
 @import "../components/gallery/skeleton";
 @import "../components/pagination/paginator";
 @import "./popup";
+@import "./btnLike";
 @import "notFound";
 //</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
 //@Mixin==============================
@@ -480,20 +481,23 @@ body {
 	&__blcok-icon {
 		display: flex;
 		justify-content: space-between;
-		margin: 1rem 1.5rem 0 1.5rem;
+		margin: 1rem 3rem 0 3rem;
 	}
 
 	&__icon {
-		font-size: 1rem;
+		font-size: 1.6rem;
 		display: flex;
 		align-items: center;
 		gap: 0.7rem;
+		position: relative;
+		z-index: 150;
 	}
 	&__svg {
-		width: 2rem;
-		height: 2rem;
+		width: 3rem;
+		height: 3rem;
 		:last-child {
-			stroke: #ffffff;
+			stroke: #000000;
+			color: #000000;
 			fill: transparent;
 		}
 	}
@@ -827,11 +831,10 @@ body {
 		gap: 1rem;
 	}
 	&__svg {
-		width: 2.5rem;
-		height: 2.5rem;
+			width: 3rem;
+			height: 3rem;
 		:last-child {
-			stroke: #000000;
-			fill: transparent;
+			
 		}
 	}
 	&__button {

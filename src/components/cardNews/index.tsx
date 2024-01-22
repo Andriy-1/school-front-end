@@ -2,23 +2,28 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { useAppSelector } from '../../redux/app/hooks';
-import { getThreeItems } from '../../redux/news/select';
+import { getThreeItems, selectNewsIsLiked } from '../../redux/news/select';
 
 import { baseUrl } from '../../api';
+import classNames from 'classnames';
+import { LuEye } from "react-icons/lu";
 
 const MiniCardNews: React.FC = () => {
 
 	const items = useAppSelector(getThreeItems);
-	const truncateText = (text:string, maxWords:number) => {
+
+	
+	const truncateText = (text: string, maxWords: number) => {
 		const words = text.split('');
-	  
+
 		if (words.length > maxWords) {
-		  const truncatedText = words.slice(0, maxWords).join('');
-		  return `${truncatedText}...`;
+			const truncatedText = words.slice(0, maxWords).join('');
+			return `${truncatedText}...`;
 		}
-	  
+
 		return text;
-	  };
+	};
+
 	return (
 		<section className="card-news">
 			<div className="card-news__row news-card">
@@ -26,9 +31,8 @@ const MiniCardNews: React.FC = () => {
 					items.map((item) => {
 						const title = item.title.split(' ', 1).join();
 						const titleText = item.title.replace(/^[^\s]+/, '');
-					
-						const dateParts = String(item.created_at).split('-');
 
+						const dateParts = String(item.created_at).split('-');
 
 						const year = parseInt(dateParts[0]);
 						const month = parseInt(dateParts[1]) - 1;
@@ -47,39 +51,39 @@ const MiniCardNews: React.FC = () => {
 									<div className="news-card__content">
 										<div className="news-card__data">
 											<span>{[mouthNameBig, '-', day, '-', year]}</span>
-											
+
 										</div>
 										<div>
 											<div className="news-card__block-title">
 												<h6 className="news-card__title title">
 													<span>{title}</span> {truncateText(titleText, 35)
-													
+
 													}
 												</h6>
 											</div>
 											<div className="news-card__blcok-icon">
 												<div className="news-card__icon">
-													
-													<span>{item.viewsCount}</span>
+													{/* <svg
+														className="info-card-news__svg svg-views-news-dims"
+														viewBox="0 0 32 32"
+														version="1.1"
+														xmlns="http://www.w3.org/2000/svg">
+														<title>eye</title>
+														<path
+															strokeWidth="1.19"
+
+															d="M30.564 15.506c-9.59-10.957-19.543-10.957-29.129 0-0.115 0.131-0.185 0.305-0.185 0.494s0.070 0.363 0.186 0.495l-0.001-0.001c4.793 5.479 9.693 8.256 14.563 8.256h0.001c4.869 0 9.771-2.777 14.564-8.256 0.116-0.131 0.186-0.304 0.186-0.494s-0.070-0.363-0.187-0.495l0.001 0.001zM3.004 16c8.704-9.626 17.291-9.622 25.992 0-8.703 9.621-17.291 9.621-25.992 0zM16 11.25c-2.623 0-4.75 2.127-4.75 4.75s2.127 4.75 4.75 4.75c2.623 0 4.75-2.127 4.75-4.75v0c-0.003-2.622-2.128-4.747-4.75-4.75h-0zM16 19.25c-1.795 0-3.25-1.455-3.25-3.25s1.455-3.25 3.25-3.25c1.795 0 3.25 1.455 3.25 3.25v0c-0.002 1.794-1.456 3.248-3.25 3.25h-0z"></path>
+													</svg> */}
+													<LuEye className='info-card-news__svg svg-views-news-dims' />
+													<span>{item.viewscount}</span>
 												</div>
 												<div className="news-card__icon">
-													<span>{item.likeCount}</span>
-													<svg
-														className="news-card__svg svg-like-news-dims"
-														viewBox="0 -3.71 75.17 75.17"
-														xmlns="http://www.w3.org/2000/svg">
-														<path
-															className="svg-like-news-path"
-															id="Path_1"
-															data-name="Path 1"
-															d="M117.606,280.375s22.263-15.459,31.959-30.318c9.6-14.708.354-31.054-10.533-33.8-14.457-3.65-21.426,10.478-21.426,10.478s-6.968-14.128-21.425-10.478c-10.888,2.748-20.132,19.094-10.534,33.8C95.343,264.916,117.606,280.375,117.606,280.375Z"
-															transform="translate(-80.021 -214.131)"
-															fill="none"
-															stroke="#0c2c67"
-															strokeLinejoin="round"
-															strokeWidth="3"
-														/>
-													</svg>
+													<span>{item.likecount}</span>
+													<button
+														className={classNames('like', { 'liked': true }, )}>
+														<span className="like-icon like-icon-state" aria-label="state">
+														</span>
+													</button>
 												</div>
 											</div>
 										</div>
