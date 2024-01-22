@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchCreateGallery, fetchDelGallery, fetchGallery } from './thunk';
+import { Gallery } from './types';
 
-const initialState: any = {
+const initialState: Gallery = {
 	oneCardTitle: ['Наша','Гімназія'],
 	oneCardText: `– це великий дружній дім, в якому живуть розумні і талановиті, ініціативні і творчі, умілі і спортивні учні. Вони всі різні, але кожен з них по-своєму любить і прагне зробити наш заклад освіти ще красивішим і кращим. <br/> – це згуртований педагогічний колектив. <br/> – це зацікавлені батьки, які готові завжди підтримати, бо знають, що вони довіряють вчителям найдорожче, що у них є, – своїх дітей.`,
 	twoCardTitle: [],
@@ -42,7 +43,7 @@ export const gallerySlice = createSlice({
 		state.paginationCount = 0;
     });
     builder.addCase(fetchGallery.fulfilled, (state, action: any) => {
-      state.status = 'success';
+	  state.status = 'success';
       state.items = action.payload.file;
       state.paginationCount = action.payload.paginationCount;
     });

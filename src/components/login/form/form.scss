@@ -21,10 +21,11 @@
 }
 .form {
 	width: 40rem;
-	height: 40rem;
+	// height: 40rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	gap: 3rem;
 	div,
 	label,
 	input,

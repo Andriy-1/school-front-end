@@ -157,6 +157,7 @@ body {
 @import "../components/gallery/swiper";
 @import "../components/gallery/skeleton";
 @import "../components/pagination/paginator";
+@import "./popup";
 @import "notFound";
 //</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
 //@Mixin==============================
@@ -560,6 +561,7 @@ body {
 		box-shadow: 0rem 0rem 4rem rgba(70, 70, 70, 0.3);
 		border: 0.2rem solid #a5dbff;
 		border-radius: 2rem;
+		cursor: pointer;
 		@media (max-width: $md1) {
 			width: 65rem;
 
