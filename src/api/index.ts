@@ -1,11 +1,7 @@
 import axios from 'axios';
-export const baseUrl = 'http://localhost:5000/';
-// export const baseUrl = 'https://api.kopachyntsi.if.ua/'; server
-// export const baseUrl = 'http://192.168.88.208:5000/';
+export const baseUrl = 'https://api.kopachyntsi.if.ua/';
 const instanse = axios.create({
-  baseURL: 'http://localhost:5000/api',
-//   baseURL: 'https://api.kopachyntsi.if.ua/api', server
-//   baseURL: 'http://192.168.88.208:5000/api', 
+  baseURL: 'https://api.kopachyntsi.if.ua/api',
 });
 
 instanse.interceptors.request.use((config: any) => {
