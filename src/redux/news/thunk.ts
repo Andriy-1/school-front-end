@@ -11,6 +11,13 @@ export const fetchNews = createAsyncThunk<AllData[], void, { state: RootState }>
     return data;
   },
 );
+export const fetchNewsThree = createAsyncThunk<AllData[], void, { state: RootState }>(
+	'news/fetchNewsThree',
+	async () => {
+	  const { data } = await instanse.get<AllData[]>('/posts/three');
+	  return data;
+	},
+  );
 export const fetchUpdateNews = createAsyncThunk<any, any, { state: RootState }>(
   'news/fetchUpdateNews',
   async (params) => {
@@ -35,6 +42,25 @@ export const fetchUpdateNewsLikes = createAsyncThunk<any, any, { state: RootStat
       });
   },
 );
+
+export const fetchUpdateNewsViews = createAsyncThunk<any, any, { state: RootState }>(
+	'news/fetchUpdateNewsViews',
+	  async ({ id, isViews }, { rejectWithValue }) => { 
+	  return await instanse
+		.patch<any>(`/posts/views/${id}`, {isViews})
+		.then(({ data }) => {
+		  return data;
+		})
+		.catch((error) => {
+		  console.log(error);
+		  if (!error.response) {
+			throw error;
+		  }
+		  return rejectWithValue(error.response.data);
+		});
+	},
+  );
+
 export const fetchCreateNews = createAsyncThunk<any, any, { state: RootState }>(
   'news/fetchCreateNews',
   async (params, { rejectWithValue }) => {

@@ -1,12 +1,12 @@
 export type StyleProps = {
   isAddBolean?: boolean;
   photoWebp?: string;
-	photoJpg?: string;
-	photoContacts?: string;
-	items?: AllData[] | null;
-	status?: string;
-	text?: string;
-	title?: any;
+  photoJpg?: string;
+  photoContacts?: string;
+  items?: AllData[] | null;
+  status?: string;
+  text?: string;
+  title?: any;
 };
 
 export type User = {
@@ -29,16 +29,8 @@ export type AllData = {
   likecount?: number;
   user_id: number;
   imageUrl: string;
-	created_at?: DataView;
-	updateLikes: void;
-  //   user: User;
-  //   createdAt?: string;
-  //   updatedAt?: string;
-  //   views?: [string?];
-  //   __v?: number;
-  //   handleClick?: () => void;
-};
+  created_at?: DataView;
+  updateLikes: void;
+  isReset?: boolean;
 
-// export type ViewsArr = {
-// 	views: [string?];
-// }
+};

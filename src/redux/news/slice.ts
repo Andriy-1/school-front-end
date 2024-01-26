@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AllData } from '../../components/types';
-import { fetchCreateNews, fetchNews, fetchUpdateNewsLikes } from './thunk';
+import { fetchCreateNews, fetchNews, fetchNewsThree, fetchUpdateNewsLikes } from './thunk';
 import { getIdStorage, NewsSliceState } from './types';
 
 const initialState: NewsSliceState = {
@@ -63,7 +63,19 @@ export const newsSlice = createSlice({
       state.status = 'error';
       state.items = [];
     });
-    //========================================================================================================================================================
+	//========================================================================================================================================================
+	builder.addCase(fetchNewsThree.pending, (state) => {
+		state.status = 'loading';
+		state.items = [];
+	  });
+	  builder.addCase(fetchNewsThree.fulfilled, (state, action: PayloadAction<AllData[]>) => {
+		state.items = action.payload;
+		state.status = 'success';
+	  });
+	  builder.addCase(fetchNewsThree.rejected, (state) => {
+		state.status = 'error';
+		state.items = [];
+	  });	//========================================================================================================================================================
 
     builder.addCase(fetchCreateNews.pending, (state) => {
       state.status = 'loading';
@@ -119,7 +131,7 @@ export const newsSlice = createSlice({
     });
     builder.addCase(fetchUpdateNewsLikes.rejected, (state) => {
       state.status = 'error';
-    });
+	});
   },
 });
 

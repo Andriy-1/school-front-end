@@ -39,10 +39,8 @@ const Personal: React.FC = () => {
 
 	React.useEffect(() => {
 		setActiveCard(false);
-		setTimeout(() => {
-			dispatch(fetchGetAllUsers());
-		}, 300);
-	}, [dispatch, deleteCard]);
+		
+	}, [deleteCard]);
 
 	const handleFileUpload = (event: any) => {
 		const file = event.target.files[0];
@@ -83,6 +81,9 @@ const Personal: React.FC = () => {
 	const handleClick = (id: string) => {
 		dispatch(fetchDeleteUser(id));
 		setDeleteCard(!deleteCard);
+		setTimeout(() => {
+			dispatch(fetchGetAllUsers());
+		}, 300);
 	};
 
 	return (
@@ -90,15 +91,16 @@ const Personal: React.FC = () => {
 			<div className="personal__container">
 				{users?.length ? users.map((item: any, index: number) => {
 					const name = item.fullName.split(' ');
+					const positions = item.position.split(".");
 					return (
 						<div key={index} className="personal__block">
 							{isAuth && (
 								<Link onClick={() => handleClick(item.id)} to={'#'} className={'personal__btn btn'}>
-									Видалити цю карточку
+									Видалити карточку
 								</Link>
 							)}
 							<div className="personal__avatar">
-								<img
+								<img loading='lazy'
 									className="personal__img"
 									src={
 										item.imageUrl
@@ -112,7 +114,7 @@ const Personal: React.FC = () => {
 								<h4 className="personal__title title">
 									<span>{name[0]}</span> {name[1] ? name[1] : ''} {name[2] ? name[2] : ''}
 								</h4>
-								<h6 className="personal__subtitle">{item.position}</h6>
+								{positions.map((position: string, i: number) => <h6 key={i} className="personal__subtitle">{position}</h6>)}
 								<p className="personal__text ">{item.description}</p>
 							</div>
 						</div>
@@ -126,7 +128,7 @@ const Personal: React.FC = () => {
 						{!activeCard && <BsFillPlusSquareFill className="createCardUser__icon" />}
 						{wayToPhoto && (
 							<Link onClick={() => setWayToPhoto('')} to={'#'} className={'personal__btn btn'}>
-								Видалити це фото
+								Видалити фото
 							</Link>
 						)}
 						<span className="f-center error">

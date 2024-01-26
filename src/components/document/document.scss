@@ -1,6 +1,5 @@
 .document {
 	max-width: 110rem;
-	// min-height: 50rem;
 	margin: 4rem auto 0 auto;
 	&::before {
 		content: "";
@@ -150,11 +149,6 @@
 		justify-content: space-between;
 		align-items: center;
 		gap: 2rem;
-	}
-	&__file-file {
-	}
-
-	&__textfield {
 	}
 	&__btn {
 

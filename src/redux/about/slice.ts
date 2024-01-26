@@ -84,8 +84,7 @@ export const usersSlice = createSlice({
       state.status = 'loading';
     });
     builder.addCase(fetchDeleteUser.fulfilled, (state, action: any) => {
-      state.status = 'success';
-      //   state.users = action.payload;
+		state.status = 'success';
     });
     builder.addCase(fetchDeleteUser.rejected, (state, action: any) => {
       state.status = 'error';

@@ -65,22 +65,22 @@ body {
 		//	overflow: hidden;
 	}
 }
-.black-color{
+.black-color {
 	transition: all 0.3s ease 0s;
-	a{
+	a {
 		color: transparentize($black-transparent, 0.13) !important;
 	}
 	:hover {
 		color: rgb(0, 0, 0);
-		text-shadow: 0.0rem 0.0rem 0.6rem rgba(255, 255, 255, 0.8);
+		text-shadow: 0rem 0rem 0.6rem rgba(255, 255, 255, 0.8);
 		.arrow-global {
 			color: rgb(255, 255, 255);
 			transform: rotate(-100deg);
 		}
 	}
 }
-.white-color{
-	a{
+.white-color {
+	a {
 		color: transparentize($white-transparent, 0.02) !important;
 		text-shadow: 0.2rem 0.2rem 0.6rem rgba(0, 0, 0, 0.8);
 	}
@@ -91,30 +91,29 @@ body {
 			color: rgb(255, 255, 255);
 			transform: rotate(-100deg);
 		}
-		
 	}
 }
-.white-color-logo{
-	g{
+.white-color-logo {
+	g {
 		fill: transparentize($white-transparent, 0.02) !important;
 		text-shadow: 0rem 0rem 0.6rem rgba(119, 222, 238, 0.6);
 	}
 }
-.global-icon{
+.global-icon {
 	display: none;
-	@media (max-width:$md3+px){
-		  display: block;
-		  :hover{
+	@media (max-width: #{$md3 + px}) {
+		display: block;
+		:hover {
 			color: #fff;
 			text-shadow: none !important;
-		  }
+		}
 	}
 }
 //</ОБНУЛЕНИЕ, ОБЩИЕ ПАРАМЕТРЫ>===============================================================================================
 //<ОБОЛОЧКА>===========================================================================================================
 .wrapper {
 	min-height: 100vh;
-	overflow: hidden;	
+	overflow: hidden;
 	display: flex;
 	flex-direction: column;
 	&._loaded {
@@ -177,7 +176,6 @@ body {
 .fullscreen {
 	height: 80vh;
 	&__container {
-		
 	}
 	&__video {
 		@include position-block(absolute, 0, 0);
@@ -186,7 +184,7 @@ body {
 		height: 100%;
 		object-fit: cover;
 		opacity: 0.96;
-		background-color:#fff;
+		background-color: #fff;
 		background-attachment: fixed;
 	}
 	&__block-content {
@@ -206,12 +204,11 @@ body {
 		text-align: left !important;
 		text-transform: none !important;
 		overflow: hidden;
-	
+
 		span {
 			text-transform: none !important;
 			color: $color_title;
 		}
-		
 	}
 	&__subtitle {
 		color: rgba(255, 255, 255);
@@ -223,27 +220,27 @@ body {
 		opacity: 0;
 		transition: all 0.3s ease 0s;
 		border-radius: 1rem;
-		&:hover{
-			padding: 0.5rem 0rem 0.5rem 1rem; 
+		&:hover {
+			padding: 0.5rem 0rem 0.5rem 1rem;
 			background-color: rgba(34, 49, 66, 0.5);
 		}
-		@media (max-width:#{$md3 + px}){
-			font-size: 1.8rem;  
+		@media (max-width:#{$md3 + px}) {
+			font-size: 1.8rem;
 		}
 	}
 	&__button {
 		max-width: 23.5rem;
 	}
 }
-.video{
-	&__blur{
+.video {
+	&__blur {
 		@include position-block(absolute, 0, 0);
 		top: 0;
 		left: 0;
 		z-index: 1;
 		width: 100%;
 		height: 100%;
-		background-color:rgba(0, 0, 0, 0.19) !important;
+		background-color: rgba(0, 0, 0, 0.19) !important;
 	}
 }
 //GLOBAL_TITLE===================================================================================================================================
@@ -253,14 +250,17 @@ body {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		@media (max-width:#{$md3 + px}){
-			margin: 5rem 0 5rem 0;
+		@media (max-width:#{$md3 + px}) {
+			margin: 3rem 0 3rem 0;
 		}
 	}
 	&__title {
-		margin: 0 0px 2rem 0;
+		margin: 2rem 0 2rem 0;
 		font-size: 6rem;
 		line-height: 6.2rem;
+		@media (max-width:#{$md4 + px}) {
+			margin: 0rem 0 2rem 0;
+		}
 	}
 
 	&__text {
@@ -268,8 +268,8 @@ body {
 		text-align: center;
 		font-size: 1.7rem;
 		animation: card-content-animate 1.3s ease-out;
-		@media (max-width:#{$md3 + px}){
-			 font-size: 2rem; 
+		@media (max-width:#{$md3 + px}) {
+			font-size: 2rem;
 		}
 	}
 }
@@ -333,8 +333,8 @@ body {
 		max-width: 60rem;
 		font-size: 1.7rem;
 		margin: 0 2rem;
-		@media (max-width:#{$md3 + px}){
-			font-size: 1.9rem;
+		@media (max-width:#{$md3 + px}) {
+			font-size: 2rem;
 			letter-spacing: 0.19rem;
 			font-weight: 400;
 		}
@@ -344,7 +344,6 @@ body {
 		animation: card-content-animate 1.3s ease-out;
 		max-width: 50rem;
 	}
-	
 }
 
 //========================================================================================================================================================
@@ -529,7 +528,6 @@ body {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
-		/* eslint-disable-next-line */
 		align-items: flex-start;
 		margin: 0 2rem;
 		gap: 1rem;
@@ -539,10 +537,10 @@ body {
 		flex: 1 1 1;
 		align-self: flex-start;
 		position: relative;
-		
+
 		transition: all 0.3s ease 0s;
 		animation: gallery 1s 1 ease-out;
-		
+
 		&:hover {
 			background-color: transparent;
 		}
@@ -568,7 +566,6 @@ body {
 		cursor: pointer;
 		@media (max-width: $md1) {
 			width: 65rem;
-
 		}
 		@media (max-width: 952px) {
 			width: 100%;
@@ -583,7 +580,7 @@ body {
 //========================================================================================================================================================
 .personal {
 	width: 95%;
-	margin: 10rem auto;
+	margin: 1rem auto;
 	&__container {
 		display: flex;
 		justify-content: center;
@@ -594,8 +591,7 @@ body {
 		@media (max-width: #{$md3 + px}) {
 			flex: 0 1 90rem;
 		}
-		flex: 0 0 45rem;
-
+		flex: 0 0 35rem;
 		min-height: 100%;
 		display: flex;
 		flex-direction: column;
@@ -636,9 +632,9 @@ body {
 		}
 	}
 	&__avatar {
-		height: 50rem;
-		@media (max-width:#{$md3 + px}){
-			 height: 80rem; 
+		height: 35rem;
+		@media (max-width:#{$md3 + px}) {
+			height: 80rem;
 		}
 	}
 	&__img {
@@ -656,17 +652,29 @@ body {
 	}
 	&__title {
 		text-transform: none !important;
+		font-weight: 500 !important;
+		@media (max-width: #{$md2 + px}) {
+			font-size: 16px;
+		}
+		@media (max-width:#{$md4 + px}) {
+			font-size: 16px;
+			margin-bottom: 1rem;
+		}
 	}
 	&__subtitle {
 		display: inline-block;
 		background: rgb(94, 203, 239);
 		color: $white-transparent;
 		border-radius: 2rem;
-		padding: 1rem;
+		padding: 0.5rem 1rem;
 		font-size: 1.8rem;
 		font-style: italic;
-		margin: 1rem 0;
+		margin: 0.5rem 0.5rem;
 		text-align: center;
+
+		@media (max-width:#{$md4 + px}) {
+			font-size: 12px;
+		}
 	}
 	&__text {
 		font-style: italic;
@@ -711,7 +719,7 @@ body {
 
 //========================================================================================================================================================
 .section-news-card {
-	animation: card-content-animate 1.3s ease-out ;
+	animation: card-content-animate 1.3s ease-out;
 	position: relative;
 	width: 79%;
 	margin: 2rem auto;
@@ -831,16 +839,15 @@ body {
 		gap: 1rem;
 	}
 	&__svg {
-			width: 3rem;
-			height: 3rem;
+		width: 3rem;
+		height: 3rem;
 		:last-child {
-			
 		}
 	}
 	&__button {
 		margin: 2rem 0;
 	}
-	&__data{
+	&__data {
 		font-size: 1.6rem;
 	}
 }
@@ -902,7 +909,7 @@ body {
 		background: linear-gradient(to bottom, rgb(255, 24, 24) 0%, rgba(0, 0, 0, 0.5) 100%) !important;
 	}
 }
-.btn-del-img{
+.btn-del-img {
 	width: 100%;
 	display: inline-block !important;
 	position: absolute;
@@ -947,15 +954,15 @@ body {
 	transition: all 0.4s ease-in-out 0s;
 }
 .global-icon {
-	color: #fff !important;;
+	color: #fff !important;
 	stroke: #fff !important;
 	width: 2.462rem;
 	height: 2.2rem;
 	margin: 0rem 0 0 0.4rem;
 	transition: all 0.4s ease-in-out 0s;
-	@media (max-width:#{$md3 + px}){
-		width: 6.0rem;
-		margin: 0rem ;
+	@media (max-width:#{$md3 + px}) {
+		width: 6rem;
+		margin: 0rem;
 		height: auto;
 	}
 }
@@ -1012,8 +1019,8 @@ body {
 .list-contact {
 	font-size: 1.9rem;
 	text-align: center;
-	@media (max-width:#{$md3 + px}){
-		 font-size: 2rem; 
+	@media (max-width:#{$md3 + px}) {
+		font-size: 2rem;
 	}
 	&__item {
 		line-height: 3.7rem;
@@ -1116,7 +1123,7 @@ body {
 		opacity: 0;
 		transform: translateY(-100px);
 	}
-	65%{
+	65% {
 		opacity: 0.2;
 	}
 	100% {

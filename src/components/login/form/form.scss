@@ -21,7 +21,6 @@
 }
 .form {
 	width: 40rem;
-	// height: 40rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -32,10 +31,6 @@
 	p {
 		font-size: 1.9rem;
 		letter-spacing: 0.1rem;
-	}
-	&__login {
-	}
-	&__password {
 	}
 	&__btn {
 		display: inline !important;

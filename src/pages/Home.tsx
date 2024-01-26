@@ -8,7 +8,7 @@ import Gallery from '../components/gallery';
 
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import { fetchGallery } from '../redux/gallery/thunk';
-import { fetchNews } from '../redux/news/thunk';
+import { fetchNewsThree } from '../redux/news/thunk';
 import { getThreeItems } from '../redux/news/select';
 
 import photoWebpTwo from '../img/home/twoWebp.webp';
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
 
 	React.useEffect(() => {
 		dispatch(fetchGallery());
-		dispatch(fetchNews());
+		dispatch(fetchNewsThree());
 	}, [dispatch])
 	return (
 		<>

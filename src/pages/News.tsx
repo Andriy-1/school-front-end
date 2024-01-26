@@ -11,7 +11,7 @@ import NewsSkeleton from '../components/news/Skeleton';
 
 import { AllData } from '../components/types';
 
-import { fetchCreateNews, fetchNews, fetchUpdateNewsLikes } from '../redux/news/thunk';
+import { fetchCreateNews, fetchNews } from '../redux/news/thunk';
 import { selectNews } from '../redux/news/select';
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import { setValid } from '../redux/news/slice';
@@ -30,6 +30,8 @@ const News: React.FC = () => {
 
 	const threeItems = items ? items.slice(0, 3) : [];
 	const inputRef = React.useRef<any>(null);
+
+	const [isReset, setIsReset] = React.useState<boolean>(false);
 
 
 	const { register, handleSubmit, setValue } = useForm({
@@ -54,7 +56,7 @@ const News: React.FC = () => {
 
 
 	const switchItems = (element: AllData[]) => {
-		return element && element.map((item) => <CardNews key={item.id} {...item} />);
+		return element && element.map((item) => <CardNews isReset={isReset} key={item.id} {...item} />);
 	};
 	const skeletonElement = (element = [1, 2, 3]) => {
 		return element.map((_, index) => (
@@ -96,7 +98,11 @@ const News: React.FC = () => {
 			alert('Помилка. Файл не завантажено');
 		}
 	};
-
+	const onClickReset = () => {
+		setIsReset(true);
+		setTimeout(() => { setIsReset(false)},1000)
+	}
+	
 	return (
 		<>
 			<Title isAddBolean={true} items={items} status={status} />
@@ -176,7 +182,7 @@ const News: React.FC = () => {
 					: switchItems(threeItems)
 				: skeletonElement()}
 			{!clickBnt && items
-				? items.length > 3 && <ButtonBlock handleClickBtn={handleClickBtn} />
+				? items.length > 3 && <ButtonBlock onClickReset={onClickReset} handleClickBtn={handleClickBtn} />
 				: ''}
 		</>
 	);
