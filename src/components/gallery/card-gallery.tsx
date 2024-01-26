@@ -47,32 +47,32 @@ const CardGaller: React.FC<cardGallery> = ({ status, paginationCount, items, isA
 	};
 	const skeleton = () => {
 		return <div className="skeleton__container">
-			<div id="gallery" className="gallery__container-photo">
-				<div className="gallery__block-photo">
+			<ul id="gallery" className="gallery__container-photo">
+				<li className="gallery__block-photo">
 					{[...new Array(9)].map((item, index) => (
 						<SkeletonGallery key={index} />
 					))}
-				</div>
-			</div>
+				</li>
+			</ul>
 		</div>
 	}
 
 	return status === 'success'
 		? items.length
 			? <>
-				<div id="gallery" className="gallery__container-photo">
+				<ul id="gallery" className="gallery__container-photo">
 					{currentItems && currentItems.map((item: any, key: number) => (
-						<div onClick={() => openPopup(item.file)} className="gallery__block-photo">
+						<li key={item.id} onClick={() => openPopup(item.file)} className="gallery__block-photo">
 							{isAuth && (
 								<span onClick={() => handleClickDel(item.id)} className="btn-del btn">
 									Видалити фото
 								</span>
 							)}
 							<img loading="lazy" className="gallery__photo" src={baseUrl + item.file} alt="gallery" />
-						</div>
+						</li>
 
 					))}
-				</div>
+				</ul>
 				{items.length > itemsPerPage &&
 					<Pagination handlePageClick={handlePageClick} pageCount={paginationCount} />}
 				<div onClick={handleOverlayClick} className={

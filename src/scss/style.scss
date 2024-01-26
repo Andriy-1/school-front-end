@@ -9,7 +9,8 @@
 //&display=swap&subset=cyrillic-ext
 //</Подключаем шрифты>=======================================================================================
 //<Колір>===============================================================================================
-$color_title: rgba(14, 190, 217, 1);
+$color_title-white-blue: rgba(14, 190, 217, 1);
+$color_title: #0D7C91;
 $white-transparent: rgba(rgb(255, 255, 255), 0.9);
 $black-transparent: rgba(rgb(0, 0, 0), 0.9);
 $purple: #883cda;
@@ -71,7 +72,7 @@ body {
 		color: transparentize($black-transparent, 0.13) !important;
 	}
 	:hover {
-		color: rgb(0, 0, 0);
+		color: $color_title;
 		text-shadow: 0rem 0rem 0.6rem rgba(255, 255, 255, 0.8);
 		.arrow-global {
 			color: rgb(255, 255, 255);
@@ -153,12 +154,13 @@ body {
 @import "../components/document/document";
 @import "../components/login/form/form";
 @import "../components/Personal/personalFormUsers";
-@import "../components/gallery/swiper";
+// @import "../components/gallery/swiper";
 @import "../components/gallery/skeleton";
 @import "../components/pagination/paginator";
 @import "./popup";
 @import "./btnLike";
 @import "notFound";
+@import "loading";
 //</ПОДКЛЮЧЕНИЕ ФАЙЛОВ СТИЛЕЙ СТРАНИЦ И ЭЛЕМЕНТОВ>====================================================================================================
 //@Mixin==============================
 @mixin position-block($pos, $vertical, $horizontal) {
@@ -184,7 +186,7 @@ body {
 		height: 100%;
 		object-fit: cover;
 		opacity: 0.96;
-		background-color: #fff;
+		background-color: white;
 		background-attachment: fixed;
 	}
 	&__block-content {
@@ -207,7 +209,7 @@ body {
 
 		span {
 			text-transform: none !important;
-			color: $color_title;
+			color: $color_title-white-blue !important;
 		}
 	}
 	&__subtitle {
@@ -240,7 +242,19 @@ body {
 		z-index: 1;
 		width: 100%;
 		height: 100%;
-		background-color: rgba(0, 0, 0, 0.19) !important;
+		// background-color: rgba(0, 0, 0, 0.19) ;
+		animation: blur-fullscreen 1s linear 1 normal running 0s forwards;
+	}
+}
+@keyframes blur-fullscreen {
+	0%{
+		background-color: transparent !important;
+	}
+	90%{
+		background-color: transparent !important;
+	}
+	100%{
+		background-color: rgba(0, 0, 0, 0.2) ;
 	}
 }
 //GLOBAL_TITLE===================================================================================================================================

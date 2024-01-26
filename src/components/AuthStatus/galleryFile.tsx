@@ -32,12 +32,12 @@ const GalleryFile: React.FC = ({ error, onSubmit, handleClickDel, handleSubmit, 
 				</button>
 			</div>
 		</form>
-		<div className="gallery__container-photo">
+		<ul className="gallery__container-photo">
 			<>
 				{
 					dataFormItems &&
 					dataFormItems.map((item: any) => (
-						<div key={item.id} className="gallery__block-photo ">
+						<li key={item.id} className="gallery__block-photo ">
 							<span onClick={() => handleClickDel(item.id)} className="btn-del-img btn">
 								Видалити фото
 							</span>
@@ -46,11 +46,11 @@ const GalleryFile: React.FC = ({ error, onSubmit, handleClickDel, handleSubmit, 
 								src={item.data}
 								alt="photo_prevew"
 							/>
-						</div>
+						</li>
 
 					))}
 			</>
-		</div>
+		</ul>
 	</div>
 
 }

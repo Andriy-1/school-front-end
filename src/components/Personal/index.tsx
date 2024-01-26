@@ -93,7 +93,7 @@ const Personal: React.FC = () => {
 					const name = item.fullName.split(' ');
 					const positions = item.position.split(".");
 					return (
-						<div key={index} className="personal__block">
+						<div key={item.id} className="personal__block">
 							{isAuth && (
 								<Link onClick={() => handleClick(item.id)} to={'#'} className={'personal__btn btn'}>
 									Видалити карточку

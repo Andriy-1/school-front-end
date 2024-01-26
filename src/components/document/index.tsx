@@ -46,7 +46,6 @@ const DocumentItem: React.FC<ct> = ({ id, active, handleSwitch, index, title, fi
 			setActiveItem(true);
 		}
 	};
-console.log('a',active);
 
 	React.useEffect(() => {
 		handleClick(active);

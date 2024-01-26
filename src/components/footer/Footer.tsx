@@ -14,7 +14,7 @@ const Footer = () => {
 				</div>
 				<div className="footer__column column-footer">
 					<div className="column-footer__block-title">
-						<h4 className="column-footer__title title">
+						<h4 className="column-footer__title ">
 							<span>Швидка</span> Навігація
 						</h4>
 					</div>
@@ -43,7 +43,7 @@ const Footer = () => {
 				</div>
 				<div className="footer__column column-footer">
 					<div className="column-footer__block-title">
-						<h4 className="column-footer__title title">
+						<h4 className="column-footer__title ">
 							<span>Залишайся</span> на зв'язку
 						</h4>
 					</div>
@@ -74,7 +74,7 @@ const Footer = () => {
 				</div>
 				<div className="footer__column column-footer">
 					<div className="column-footer__block-title">
-						<h4 className="column-footer__title title">
+						<h4 className="column-footer__title">
 							<span>на</span> зв'язку
 						</h4>
 					</div>
@@ -94,7 +94,7 @@ const Footer = () => {
 				</div>
 			</div>
 			<div className="footer__copyright">
-				<span>2023. Копачинська гімназія. Copyright.</span>
+				<span>©Всі права захищено 2023-2024. Solved with 💜 by <Link className='black-color' to={'https://www.linkedin.com/in/andriy-hava-12a937208/'}>AeroHav</Link></span>
 			</div>
 		</footer>
 	);

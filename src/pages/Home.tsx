@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { Suspense, startTransition } from 'react';
 
 import FullScreen from '../components/fullScreen/FullScreen';
 import Title from '../components/BlockTiitle/Title';
 import Card from '../components/card/Card';
 import MiniCardNews from '../components/cardNews';
-import Gallery from '../components/gallery';
-
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import { fetchGallery } from '../redux/gallery/thunk';
 import { fetchNewsThree } from '../redux/news/thunk';
@@ -18,15 +16,19 @@ import photoJpgOne from '../img/home/one.jpg';
 
 import { selectDefaultData } from '../redux/gallery/select';
 import { Helmet } from 'react-helmet';
-
+import Loader from '../components/loader/Loader';
+const Gallery = React.lazy(() => import('../components/gallery'));
 const Home: React.FC = () => {
 	const dispatch = useAppDispatch()
 	const itemsNews = useAppSelector(getThreeItems);
 	const defaultData = useAppSelector(selectDefaultData);
 
 	React.useEffect(() => {
-		dispatch(fetchGallery());
+		
 		dispatch(fetchNewsThree());
+		startTransition(() => {
+			dispatch(fetchGallery());
+		});
 	}, [dispatch])
 	return (
 		<>
@@ -43,7 +45,8 @@ const Home: React.FC = () => {
 				</>
 			) : ''
 			}
-			<Gallery />
+			<Suspense fallback={<Loader/>}><Gallery /></Suspense>
+			
 		</>
 	);
 };
