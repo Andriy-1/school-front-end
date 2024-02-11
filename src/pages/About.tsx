@@ -5,7 +5,7 @@ import Card from '../components/card/Card';
 import photoWebpB from '../img/about/color-day-is-blue.webp';
 import photoJpgB from '../img/about/color-day-is-blue.jpg';
 import photoWebpG from '../img/about/сolor-day-is-green.webp';
-import photoJpgG from '../img/about/сolor-day-is-green.jpg';
+import photoJpgG from '../img/about/сolor-day-is-green.png';
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import { selectDefaultData, selectUsers } from '../redux/about/select';
 import { selectAuth } from '../redux/auth/select';
