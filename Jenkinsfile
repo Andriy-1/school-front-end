@@ -11,13 +11,23 @@ pipeline {
                 )
             }
         }
-        
-        stage('Update Frontend') {
+        stage('Build Docker Image') {
             steps {
-                dir('/home/server/school-ngx-dok/frontend/') {
-                    sh 'git pull'
+                script {
+                    // Команда для збирання образу Docker (наприклад, за допомогою Dockerfile у кореневій папці проекту)
+                    sh 'docker build -t school_frontend:1.0.0 .'
                 }
             }
         }
+        stage('Publish Docker Image') {
+            steps {
+                script {
+                   withCredentials([string(credentialsId: 'docker_hub_jenkins', variable: 'docker_hub_jenkins')]) {
+					sh 'docker login -u Andriyhomee ${docker_hub_jenkins}'
+					}
+					sh 'docker push Andriyhomee/school_frontend'
+                }
+            }
+   		}
     }
 }
