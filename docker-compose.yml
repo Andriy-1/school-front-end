@@ -1,4 +1,4 @@
-version: '3.8'
+
 services:
   frontend:
     image: 'andriyhomee/school_frontend:latest'
