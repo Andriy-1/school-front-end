@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+  frontend:
+    image: 'andriyhomee/school_frontend:latest'
+    container_name: frontend
+    restart: always
+    volumes:
+      - ../school-ngx-dok/frontend:/code
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - backend
+    networks:
+      - school
+
+  backend:
+    container_name: backend
+    restart: always
+    volumes:
+      # - ../school-ngx-dok/backend:/code
+      - ./data-static-backend:/usr/src/backend/static
+    build:
+      context: ../school-ngx-dok/backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    networks:
+      - school
+   
+  db:
+    container_name: pg-container
+    restart: always
+    image: postgres:14.7-alpine
+    environment:
+      POSTGRES_USER: andriy
+      POSTGRES_PASSWORD: 12233221
+      POSTGRES_DB: school-base
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data/
+    command: postgres -c 'max_connections=200'
+    ports:
+      - "5432:5432"
+    networks:
+      - school
+
+networks:
+  school:
+    
+volumes:
+  data-static-backend:
+  postgres_data:
+
