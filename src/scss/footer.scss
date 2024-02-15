@@ -36,6 +36,9 @@
 		color: black;
 		position: absolute;
 		text-align: center;
+		@media (max-width:#{$md3 + px}) {
+			font-size: 2.1rem;
+		}
 	}
 }
 .column-footer {
@@ -48,7 +51,7 @@
 	&__text-logo {
 		text-shadow: 0.2rem 0.2rem 0.6rem rgba(149, 149, 149, 0.8);
 		color: rgba(255, 255, 255, 1);
-		font-size: 2.7rem;
+		font-size: 3.7rem;
 		font-weight: 900;
 		letter-spacing: 0.3rem;
 	}
@@ -77,7 +80,7 @@
 		font-size: 1.7rem;
 		line-height: 3.7rem;
 		@media (max-width:#{$md3 + px}) {
-			font-size: 2.3rem;
+			font-size: 2.6rem;
 			line-height: 4.7rem;
 		}
 		a {
