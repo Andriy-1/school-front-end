@@ -7,27 +7,37 @@ pipeline {
                 checkout scmGit(
                     branches: [[name: '*/master']],
                     extensions: [],
-                    userRemoteConfigs: [[credentialsId: 'github_token', url: 'https://github.com/Andriy-1/school-front-end.git']]
+                    userRemoteConfigs: [[credentialsId: 'Github_config', url: 'https://github.com/Andriy-1/school-front-end.git']]
                 )
             }
         }
         stage('Build Docker Image') {
             steps {
                 script {
-                    // Команда для збирання образу Docker (наприклад, за допомогою Dockerfile у кореневій папці проекту)
-                    sh 'docker build -t school_frontend:1.0.0 .'
+                    sh 'docker build -t andriyhomee/school_frontend:latest -f ./Dockerfile.dev .'
                 }
             }
         }
         stage('Publish Docker Image') {
             steps {
                 script {
-                   withCredentials([string(credentialsId: 'docker_hub_jenkins', variable: 'docker_hub_jenkins')]) {
-					sh 'docker login -u andriyhomee ${docker_hub_jenkins}'
+                    
+                   withDockerRegistry(credentialsId: 'dockerhub-cred-andriyhomee', url: 'https://index.docker.io/v1/') {
+					sh 'docker push andriyhomee/school_frontend:latest'
 					}
-					sh 'docker push andriyhomee/school_frontend'
                 }
             }
    		}
+        stage('Start docker container frontend') {
+            steps {
+                script {
+                    sh 'docker stop frontend-jenkins'
+                    sh 'docker rm frontend-jenkins'
+                    sh 'docker run -d -p 3000:3000 --name frontend-jenkins andriyhomee/school_frontend:latest'
+                
+                }
+            }
+        }
+       
     }
 }
