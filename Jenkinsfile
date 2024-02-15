@@ -11,14 +11,29 @@ pipeline {
                 )
             }
         }
-        stage('Build Docker Image') {
+        stage('Delete Docker Container') {
+            steps {
+                script {
+                    sh 'docker stop frontend-jenkins'
+                    sh 'docker rm frontend-jenkins'
+                }
+            }
+        }
+        stage('Delete Docker Image') {
+            steps {
+                script {
+                    sh 'docker image rm andriyhomee/school_frontend'
+                }
+            }
+        }
+        stage('Build New Docker Image') {
             steps {
                 script {
                     sh 'docker build -t andriyhomee/school_frontend:latest -f ./Dockerfile.dev .'
                 }
             }
         }
-        stage('Publish Docker Image') {
+        stage('Publish New Docker Image') {
             steps {
                 script {
                     
@@ -28,12 +43,10 @@ pipeline {
                 }
             }
    		}
-        stage('Start docker container frontend') {
+        stage('Start New Docker Container Frontend') {
             steps {
                 script {
-                    sh 'docker stop frontend-jenkins'
-                    sh 'docker rm frontend-jenkins'
-                    sh 'docker run -d -p 3000:3000 --name frontend-jenkins andriyhomee/school_frontend:latest'
+                    sh 'docker run -d -p 3000:3000 --name frontend-jenkins --restart unless-stopped andriyhomee/school_frontend:latest'
                 
                 }
             }
