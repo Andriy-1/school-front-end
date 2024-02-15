@@ -1,9 +1,0 @@
-
-services:
-  frontend:
-    image: 'andriyhomee/school_frontend:latest'
-    container_name: frontend
-    restart: always
-    ports:
-      - "3000:3000"
-

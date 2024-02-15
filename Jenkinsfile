@@ -23,9 +23,9 @@ pipeline {
             steps {
                 script {
                    withCredentials([string(credentialsId: 'docker_hub_jenkins', variable: 'docker_hub_jenkins')]) {
-					sh 'docker login -u Andriyhomee ${docker_hub_jenkins}'
+					sh 'docker login -u andriyhomee ${docker_hub_jenkins}'
 					}
-					sh 'docker push Andriyhomee/school_frontend'
+					sh 'docker push andriyhomee/school_frontend'
                 }
             }
    		}
