@@ -2,12 +2,13 @@ import React from 'react'
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import { useLocation } from 'react-router-dom';
 import { selectGallery } from '../redux/gallery/select';
-import { selectDoc } from '../redux/document/select';
+import { selectDoc, selectDocumentActiveCategoriesId } from '../redux/document/select';
 import { UseFormHandleSubmit, useForm } from 'react-hook-form';
 import { delFormItems, delFormItemsAll, getError, setFormItems } from '../redux/gallery/slice';
 import { fetchCreateGallery } from '../redux/gallery/thunk';
 import { delDocItemsAll } from '../redux/document/slice';
 import { fetchCreateDoc, fetchCreateDocCircle, fetchCreateDocTimeTable, fetchDoc, fetchDocCircle, fetchDocTimeTable } from '../redux/document/thunk';
+import { toast } from 'react-toastify';
 
 interface Props {
 	error: String,
@@ -30,12 +31,13 @@ const withFileComponent: HOC = (Component) => {
 		const dispatch = useAppDispatch();
 		const location = useLocation();
 		const { dataFormItems } = useAppSelector(selectGallery);
+		const categoriesId = useAppSelector(selectDocumentActiveCategoriesId);
 		const [wayToFile, setWayToFile] = React.useState<string[]>([]);
-	
+
 		const inputRef = React.useRef<any>(null);
 		const progressRef = React.useRef<any>(null);
 		const { errorMessage } = useAppSelector(selectGallery);
-		const DocData = useAppSelector(selectDoc);
+		const docData = useAppSelector(selectDoc);
 		const [error, setError] = React.useState('');
 
 		const { setValue, handleSubmit, register } = useForm({
@@ -50,7 +52,7 @@ const withFileComponent: HOC = (Component) => {
 
 		React.useEffect(() => {
 			if (location.pathname === '/document') {
-				dispatch(fetchDoc());
+				// dispatch(fetchDoc(''));
 			} else if (location.pathname === '/education/timetable') {
 				dispatch(fetchDocTimeTable());
 			} else if (location.pathname === '/education/circle') {
@@ -120,6 +122,7 @@ const withFileComponent: HOC = (Component) => {
 							}, 300);
 						}
 						formData.append('title', value.title);
+						formData.append('categories_id', categoriesId);
 						formData.append('seniors', props?.isActive);
 						if (location.pathname === '/document') {
 							dispatch(fetchCreateDoc(formData));
@@ -130,14 +133,46 @@ const withFileComponent: HOC = (Component) => {
 						}
 					} else {
 						setError('Вставте PDF файл');
+						toast.error('Завантажте документ у PDF-форматі ', {
+							position: 'bottom-right',
+							autoClose: 2500,
+							hideProgressBar: false,
+							closeOnClick: false,
+							pauseOnHover: false,
+							draggable: false,
+							progress: undefined,
+							theme: 'light',
+							isLoading: false,
+						  });
 					}
 				} else {
-					console.log('doc-err');
 					setError('Поле не заповнене');
+					toast.error('Задайте назву документа', {
+						position: 'bottom-right',
+						autoClose: 2500,
+						hideProgressBar: false,
+						closeOnClick: false,
+						pauseOnHover: false,
+						draggable: false,
+						progress: undefined,
+						theme: 'light',
+						isLoading: false,
+					  });
 				}
 			} catch (error) {
 				console.log(error);
 				setError('');
+				toast.error('Помилка. Файл не завантажено', {
+					position: 'bottom-right',
+					autoClose: 2500,
+					hideProgressBar: false,
+					closeOnClick: false,
+					pauseOnHover: false,
+					draggable: false,
+					progress: undefined,
+					theme: 'light',
+					isLoading: false,
+				  });
 				alert('Помилка. Файл не завантажено');
 			}
 		};
@@ -178,9 +213,31 @@ const withFileComponent: HOC = (Component) => {
 					}
 				} else {
 					setError('Виберіть файл');
+					toast.error('Виберіть зображення із фоматами(jpeg,jpg,png,webp,svg,ifif', {
+						position: 'bottom-right',
+						autoClose: 2500,
+						hideProgressBar: false,
+						closeOnClick: false,
+						pauseOnHover: false,
+						draggable: false,
+						progress: undefined,
+						theme: 'light',
+						isLoading: false,
+					  });
 				}
 			} catch (error) {
 				console.log(error);
+				toast.error('Помилка. Файл не завантажено', {
+					position: 'bottom-right',
+					autoClose: 2500,
+					hideProgressBar: false,
+					closeOnClick: false,
+					pauseOnHover: false,
+					draggable: false,
+					progress: undefined,
+					theme: 'light',
+					isLoading: false,
+				  });
 				alert('Помилка. Файл не завантажено');
 			}
 		};
@@ -195,7 +252,7 @@ const withFileComponent: HOC = (Component) => {
 			onSubmit: location.pathname === '/' ? onSubmitGalley : onSubmitDoc,
 			inputRef,
 			errorMessage,
-			errorMessageDoc: DocData.errorMessage,
+			errorMessageDoc: docData.errorMessage,
 			wayToFile,
 			setWayToFile: setWayToFile,
 			register: register('title'),

@@ -9,7 +9,6 @@ import withFileComponent from '../../hoc/file';
 const DocFile: React.FC<any> = (props: any) => {
 
 	const isAuth = useAppSelector(selectAuth);
-
 	return isAuth ? (
 		<>
 			<div className="progress-bar">

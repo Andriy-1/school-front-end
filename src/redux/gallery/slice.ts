@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchCreateGallery, fetchDelGallery, fetchGallery } from './thunk';
 import { Gallery } from './types';
+import { toast } from 'react-toastify';
 
 const initialState: Gallery = {
 	oneCardTitle: ['Наша','Гімназія'],
@@ -12,7 +13,8 @@ const initialState: Gallery = {
 	paginationCount: 0,
   	status: 'loading',
 	errorMessage: '',
-	count: 0
+	count: 0,
+	toast: null,
 };
 
 export const gallerySlice = createSlice({
@@ -57,16 +59,51 @@ export const gallerySlice = createSlice({
       state.status = 'loading';
 		state.items = [];
 		state.paginationCount = 0;
+		state.toast = toast.loading('Завантаження...', {
+			position: 'bottom-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: false,
+			pauseOnHover: false,
+			draggable: false,
+			progress: undefined,
+			theme: 'light',
+		  });
     });
 	  builder.addCase(fetchCreateGallery.fulfilled, (state, action: PayloadAction<any>) => {	
-		  
 		state.items = action.payload.file;
 		state.paginationCount = action.payload.paginationCount;
 		  state.status = 'success';	  
+		  toast.update(state.toast, {
+			render:( action.payload.message as string),
+			type: 'success',
+			position: 'bottom-right',
+			autoClose: 2500,
+			hideProgressBar: false,
+			closeOnClick: false,
+			pauseOnHover: false,
+			draggable: false,
+			progress: undefined,
+			theme: 'light',
+			isLoading: false,
+		  });
     });
     builder.addCase(fetchCreateGallery.rejected, (state, action: PayloadAction<any>) => {
       state.status = 'error';
-      console.log(action.payload.message);
+		console.log(action.payload.message);
+		toast.update(state.toast, {
+			render:( action.payload.message as string),
+			type: 'error',
+			position: 'bottom-right',
+			autoClose: 2500,
+			hideProgressBar: false,
+			closeOnClick: false,
+			pauseOnHover: false,
+			draggable: false,
+			progress: undefined,
+			theme: 'light',
+			isLoading: false,
+		  });
 		state.errorMessage = action.payload.message;
 		state.paginationCount = 0;
 	});

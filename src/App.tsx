@@ -29,13 +29,13 @@ function App() {
 		<Routes>
 			<Route path="/" element={<MainLayouts />}>
 				<Route path="/" element={<Home />} />
-				<Route path="/about" element={<About />} />
-				<Route path="/news" element={<News />} />
-				<Route path="/education/timetable" element={<Timetable />} />
-				<Route path="/education/circle" element={<Circle />} />
-				<Route path="/document" element={<Document />} />
-				<Route path="/contacts" element={<Contacts />} />
-				<Route path="/login" element={<Login />} />
+				<Route path="about" element={<About />} />
+				<Route path="news" element={<News />} />
+				<Route path="education/timetable" element={<Timetable />} />
+				<Route path="education/circle" element={<Circle />} />
+				<Route path="document" element={<Document />} />
+				<Route path="contacts" element={<Contacts />} />
+				<Route path="login" element={<Login />} />
 				<Route path="*" element={<NotFound />} />
 			</Route>
 		</Routes>
