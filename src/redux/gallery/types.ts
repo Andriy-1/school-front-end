@@ -14,6 +14,8 @@ export type Gallery = {
 	status: string;
 	errorMessage: string;
 	count: number;
+	toast: any,
+	
 };
 // interface DataFormItem {
 // 	data: [];

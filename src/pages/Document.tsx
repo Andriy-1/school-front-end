@@ -21,7 +21,7 @@ const Document: React.FC = () => {
 	};
 
 	return (
-		<section className="document">
+		<section className="document container">
 			<Helmet>
 				<title>Документи</title>
 			</Helmet>

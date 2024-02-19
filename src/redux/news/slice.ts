@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AllData } from '../../components/types';
+import { AllData, AllDataAction } from '../../components/types';
 import { fetchCreateNews, fetchNews, fetchNewsThree, fetchUpdateNewsLikes } from './thunk';
 import { getIdStorage, NewsSliceState } from './types';
+import { toast } from 'react-toastify';
 
 const initialState: NewsSliceState = {
   items: [],
@@ -11,6 +12,7 @@ const initialState: NewsSliceState = {
   views: [],
   validate: {},
   isLiked: false,
+  toast: null,
 };
 
 export const newsSlice = createSlice({
@@ -63,33 +65,69 @@ export const newsSlice = createSlice({
       state.status = 'error';
       state.items = [];
     });
-	//========================================================================================================================================================
-	builder.addCase(fetchNewsThree.pending, (state) => {
-		state.status = 'loading';
-		state.items = [];
-	  });
-	  builder.addCase(fetchNewsThree.fulfilled, (state, action: PayloadAction<AllData[]>) => {
-		state.items = action.payload;
-		state.status = 'success';
-	  });
-	  builder.addCase(fetchNewsThree.rejected, (state) => {
-		state.status = 'error';
-		state.items = [];
-	  });	//========================================================================================================================================================
-
-    builder.addCase(fetchCreateNews.pending, (state) => {
+    //========================================================================================================================================================
+    builder.addCase(fetchNewsThree.pending, (state) => {
       state.status = 'loading';
+      state.items = [];
     });
-    builder.addCase(fetchCreateNews.fulfilled, (state, action: PayloadAction<AllData[]>) => {
-      if (state.items) {
-        state.items.push(action.payload as any);
-      }
+    builder.addCase(fetchNewsThree.fulfilled, (state, action: PayloadAction<AllData[]>) => {
+      state.items = action.payload;
       state.status = 'success';
     });
-    builder.addCase(fetchCreateNews.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(fetchNewsThree.rejected, (state) => {
       state.status = 'error';
       state.items = [];
-      if (action.payload.message) {
+    }); //========================================================================================================================================================
+
+    builder.addCase(fetchCreateNews.pending, (state) => {
+		state.status = 'loading';
+		state.toast = toast.loading('Завантаження...', {
+			position: 'bottom-right',
+			autoClose: 2000,
+			hideProgressBar: false,
+			closeOnClick: false,
+			pauseOnHover: false,
+			draggable: false,
+			progress: undefined,
+			theme: 'light',
+		  });
+    });
+    builder.addCase(fetchCreateNews.fulfilled, (state, action: PayloadAction<AllDataAction>) => {
+      if (state.items) {
+        state.items.push(action.payload.post as AllData);
+      }
+		state.status = 'success';
+		toast.update(state.toast, {
+			render:( action.payload.message as string),
+			type: 'success',
+			position: 'bottom-right',
+			autoClose: 2500,
+			hideProgressBar: false,
+			closeOnClick: false,
+			pauseOnHover: false,
+			draggable: false,
+			progress: undefined,
+			theme: 'light',
+			isLoading: false,
+		  });
+    });
+    builder.addCase(fetchCreateNews.rejected, (state, action: PayloadAction<any>) => {
+		state.status = 'error';
+      state.items = [];
+		if (action.payload.message) {
+			toast.update(state.toast, {
+				render:( action.payload.message + ' ' + 'Додайте фото' as string),
+				type: 'error',
+				position: 'bottom-right',
+				autoClose: 2500,
+				hideProgressBar: false,
+				closeOnClick: false,
+				pauseOnHover: false,
+				draggable: false,
+				progress: undefined,
+				theme: 'light',
+				isLoading: false,
+			  });
         state.validate.message = action.payload.message;
         state.validate.titleMessage = '';
         state.validate.textMessage = '';
@@ -97,19 +135,58 @@ export const newsSlice = createSlice({
         //! Метод forEach не можна використовувати оскільки вони можуть змінювати стан reduxStore
         action.payload.forEach((fieldName: any) => {
           switch (fieldName.param) {
-            case 'title':
+			  case 'title':
+				toast.update(state.toast, {
+					render:( fieldName.msg as string),
+					type: 'error',
+					position: 'bottom-right',
+					autoClose: 2500,
+					hideProgressBar: false,
+					closeOnClick: false,
+					pauseOnHover: false,
+					draggable: false,
+					progress: undefined,
+					theme: 'light',
+					isLoading: false,
+				  });
               state.validate.titleMessage = fieldName.msg;
               state.validate.textMessage = '';
               state.validate.imageMessage = '';
               state.validate.message = '';
               break;
-            case 'text':
+			  case 'text':
+				toast.update(state.toast, {
+					render:( fieldName.msg as string),
+					type: 'error',
+					position: 'bottom-right',
+					autoClose: 2500,
+					hideProgressBar: false,
+					closeOnClick: false,
+					pauseOnHover: false,
+					draggable: false,
+					progress: undefined,
+					theme: 'light',
+					isLoading: false,
+				  });
               state.validate.textMessage = fieldName.msg;
               state.validate.titleMessage = '';
               state.validate.imageMessage = '';
               state.validate.message = '';
               break;
-            case 'imageUrl':
+			  case 'imageUrl':
+				toast.update(state.toast, {
+					render:( fieldName.msg as string),
+					type: 'error',
+					position: 'bottom-right',
+					autoClose: 2500,
+					hideProgressBar: false,
+					closeOnClick: false,
+					pauseOnHover: false,
+					draggable: false,
+					progress: undefined,
+					theme: 'light',
+					isLoading: false,
+				  });
               state.validate.imageMessage = fieldName.msg;
               state.validate.titleMessage = '';
               state.validate.textMessage = '';
@@ -131,7 +208,7 @@ export const newsSlice = createSlice({
     });
     builder.addCase(fetchUpdateNewsLikes.rejected, (state) => {
       state.status = 'error';
-	});
+    });
   },
 });
 

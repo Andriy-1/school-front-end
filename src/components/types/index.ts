@@ -32,5 +32,8 @@ export type AllData = {
   created_at?: DataView;
   updateLikes: void;
   isReset?: boolean;
-
+};
+export type AllDataAction = {
+  post: AllData;
+  message: string;
 };

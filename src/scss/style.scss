@@ -16,6 +16,7 @@ $black-transparent: rgba(rgb(0, 0, 0), 0.9);
 $purple: #883cda;
 $black-btn: #141516;
 $purple-white: #cb9bff;
+$active: rgb(1, 146, 156);
 $black: #141516;
 $orang: #ff7a00;
 $color_after_gradient: rgba(20, 21, 22, 0.4);
@@ -152,6 +153,7 @@ body {
 @import "footer";
 @import "../components/NavigateTimetable/timetable";
 @import "../components/document/document";
+@import "../components/document/categories";
 @import "../components/login/form/form";
 @import "../components/Personal/personalFormUsers";
 // @import "../components/gallery/swiper";

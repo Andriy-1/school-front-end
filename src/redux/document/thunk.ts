@@ -3,16 +3,11 @@ import instanse from '../../api';
 // import { AllData } from '../../components/types';
 import { RootState } from '../store';
 
-export const fetchDoc = createAsyncThunk<any, string>(
-  'document/fetchDoc',
-	async (query) => {
-	  const queryString = query? `?${query}`: ''
-    const { data } = await instanse.get<any>('/document' + queryString);
-    return data;
-  },
-);
-
-
+export const fetchDoc = createAsyncThunk<any, string>('document/fetchDoc', async (id) => {
+  const queryString = id.length ? `?categories_id=${id}` : '';
+  const { data } = await instanse.get<any>('/document' + queryString);
+  return data;
+});
 
 export const fetchCreateDoc = createAsyncThunk<
   any,
@@ -32,6 +27,14 @@ export const fetchCreateDoc = createAsyncThunk<
       return rejectWithValue(error.response.data);
     });
 });
+
+export const fetchUpdateDoc = createAsyncThunk<any, any, { state: RootState }>(
+	'document/fetchUpdateDocumentCategories',
+	async (params) => {
+	  const { data } = await instanse.patch<any>(`/document/${params.id}`, params);
+	  return data;
+	},
+  );
 export const fetchDeleteDoc = createAsyncThunk<any, number>(
   'document/fetchDeleteDoc',
   async (id) => {
@@ -46,13 +49,13 @@ export const fetchDeleteDoc = createAsyncThunk<any, number>(
   },
 );
 //========================================================================
-export const fetchDocumentCategories = createAsyncThunk<any, string>(
-	'document/fetchDocumentCategories',
-	  async () => {
-	  const { data } = await instanse.get<any>('/document-categories');
-	  return data;
-	},
-  );
+export const fetchDocumentCategories = createAsyncThunk<any, void, { state: RootState }>(
+  'document/fetchDocumentCategories',
+  async () => {
+    const { data } = await instanse.get<any>('/document-categories');
+    return data;
+  },
+);
 
 export const fetchCreateDocumentCategories = createAsyncThunk<
   any,
@@ -74,6 +77,20 @@ export const fetchCreateDocumentCategories = createAsyncThunk<
       return rejectWithValue(error.response.data);
     });
 });
+export const fetchDeleteDocumentCategories = createAsyncThunk<any, number>(
+  'document/fetchDeleteDocumentCategories',
+  async (id, { rejectWithValue }) => {
+    return await instanse
+      .delete<any>(`/document-categories/${id}`)
+      .then(({ data }) => {
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+        return rejectWithValue(error.response.data);
+      });
+  },
+);
 
 //========================================================================
 

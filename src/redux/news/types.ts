@@ -15,6 +15,7 @@ export interface NewsSliceState {
   views: [number?];
 	validate: Validate;
 	isLiked: boolean;
+	toast: null | any;
 }
 
 export type getIdStorage = {

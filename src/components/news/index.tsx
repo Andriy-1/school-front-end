@@ -96,7 +96,6 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likecount, vie
 	)
 	const handleViewsFocus = (event: any, postId: any) => {
 		event.stopPropagation();
-		console.log(true);
 		const viewsPosts: number[] = JSON.parse(localStorage.getItem('viewsPosts') || '[]');
 		const postIsViews: boolean = viewsPosts.includes(postId);
 		if (viewsPosts.includes(postId)) {
