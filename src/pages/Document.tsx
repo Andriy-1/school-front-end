@@ -7,6 +7,7 @@ import { useAppSelector } from '../redux/app/hooks';
 import { selectDoc } from '../redux/document/select';
 import { Helmet } from 'react-helmet';
 import Loader from '../components/loader/Loader';
+import Categories from '../components/document/categories';
 
 const DocumentItem = React.lazy(() => import('../components/document'));
 const Document: React.FC = () => {
@@ -25,6 +26,10 @@ const Document: React.FC = () => {
 				<title>Документи</title>
 			</Helmet>
 			<Suspense fallback={<Loader />}>
+				<br />
+				<br />
+				<Categories />
+			<DocwithFileComponent />
 			{items.length ? <>
 				{items && items.map((item: any, index: number) => (
 					<DocumentItem
@@ -38,7 +43,7 @@ const Document: React.FC = () => {
 			</> : status === 'success' && <Title />}
 			</Suspense>
 			
-			<DocwithFileComponent />
+			
 		</section>
 	);
 };

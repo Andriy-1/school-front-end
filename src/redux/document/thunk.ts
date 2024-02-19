@@ -3,13 +3,16 @@ import instanse from '../../api';
 // import { AllData } from '../../components/types';
 import { RootState } from '../store';
 
-export const fetchDoc = createAsyncThunk<any, void, { state: RootState }>(
+export const fetchDoc = createAsyncThunk<any, string>(
   'document/fetchDoc',
-  async () => {
-    const { data } = await instanse.get<any>('/document');
+	async (query) => {
+	  const queryString = query? `?${query}`: ''
+    const { data } = await instanse.get<any>('/document' + queryString);
     return data;
   },
 );
+
+
 
 export const fetchCreateDoc = createAsyncThunk<
   any,
@@ -42,17 +45,46 @@ export const fetchDeleteDoc = createAsyncThunk<any, number>(
       });
   },
 );
+//========================================================================
+export const fetchDocumentCategories = createAsyncThunk<any, string>(
+	'document/fetchDocumentCategories',
+	  async () => {
+	  const { data } = await instanse.get<any>('/document-categories');
+	  return data;
+	},
+  );
+
+export const fetchCreateDocumentCategories = createAsyncThunk<
+  any,
+  Array<FormDataEntryValue>,
+  { state: RootState }
+>('document/fetchCreateDocumentCategories', async (params, { rejectWithValue }) => {
+  console.log('par', params);
+
+  return await instanse
+    .post<any>('/document-categories', params)
+    .then(({ data }) => {
+      return data;
+    })
+    .catch((error) => {
+      console.log(error);
+      if (!error.response) {
+        throw error;
+      }
+      return rejectWithValue(error.response.data);
+    });
+});
 
 //========================================================================
 
 export const fetchDocTimeTable = createAsyncThunk<any, void, { state: RootState }>(
-	'document/fetchDocTimeTable',
-	async () => {
-	  const { data } = await instanse.get<any>('/timetable');
-	  return data;
-	},
+  'document/fetchDocTimeTable',
+  async () => {
+    const { data } = await instanse.get<any>('/timetable');
+    return data;
+  },
 );
-  
+
 export const fetchCreateDocTimeTable = createAsyncThunk<
   any,
   Array<FormDataEntryValue>,
@@ -73,30 +105,30 @@ export const fetchCreateDocTimeTable = createAsyncThunk<
 });
 
 export const fetchDeleteDocTimeTable = createAsyncThunk<any, number>(
-	'document/fetchDeleteDocTimeTable',
-	async (id) => {
-	  return await instanse
-		.delete<any>(`/timetable/${id}`)
-		.then(({ data }) => {
-		  return data;
-		})
-		.catch((error) => {
-		  console.log(error);
-		});
-	},
-  );
-  
-  //========================================================================
-
-export const fetchDocCircle  = createAsyncThunk<any, void, { state: RootState }>(
-	'document/fetchDocCircle',
-	async () => {
-	  const { data } = await instanse.get<any>('/circle');
-	  return data;
-	},
+  'document/fetchDeleteDocTimeTable',
+  async (id) => {
+    return await instanse
+      .delete<any>(`/timetable/${id}`)
+      .then(({ data }) => {
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
 );
-  
-export const fetchCreateDocCircle  = createAsyncThunk<
+
+//========================================================================
+
+export const fetchDocCircle = createAsyncThunk<any, void, { state: RootState }>(
+  'document/fetchDocCircle',
+  async () => {
+    const { data } = await instanse.get<any>('/circle');
+    return data;
+  },
+);
+
+export const fetchCreateDocCircle = createAsyncThunk<
   any,
   Array<FormDataEntryValue>,
   { state: RootState }
@@ -116,16 +148,15 @@ export const fetchCreateDocCircle  = createAsyncThunk<
 });
 
 export const fetchDeleteDocCircle = createAsyncThunk<any, number>(
-	'document/fetchDeleteDocCircle',
-	async (id) => {
-	  return await instanse
-		.delete<any>(`/circle/${id}`)
-		.then(({ data }) => {
-		  return data;
-		})
-		.catch((error) => {
-		  console.log(error);
-		});
-	},
-  );
-  
+  'document/fetchDeleteDocCircle',
+  async (id) => {
+    return await instanse
+      .delete<any>(`/circle/${id}`)
+      .then(({ data }) => {
+        return data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+);

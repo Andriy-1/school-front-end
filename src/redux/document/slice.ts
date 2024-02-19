@@ -1,12 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AllData } from '../../components/types';
-import { fetchCreateDoc, fetchCreateDocCircle, fetchCreateDocTimeTable, fetchDoc, fetchDocCircle, fetchDocTimeTable } from './thunk';
+import {
+  fetchCreateDoc,
+  fetchCreateDocCircle,
+  fetchCreateDocTimeTable,
+  fetchCreateDocumentCategories,
+  fetchDoc,
+  fetchDocCircle,
+  fetchDocTimeTable,
+  fetchDocumentCategories,
+} from './thunk';
 
 const initialState: any = {
   items: [],
+  categories: [],
+  message: '',
   status: 'loading',
-	errorMessage: '',
-	dataFormItems: [],
+  errorMessage: '',
+  dataFormItems: [],
 };
 
 export const docSlice = createSlice({
@@ -18,19 +29,20 @@ export const docSlice = createSlice({
     },
     getError: (state) => {
       state.errorMessage = '';
-	  },
-	  setFormItemsDoc: (state, action: PayloadAction<any>) => {
-		state.dataFormItems.push(action.payload);
-	  },
-	  delDocItems: (state,action: PayloadAction<number>) => {
+    },
+    setFormItemsDoc: (state, action: PayloadAction<any>) => {
+      state.dataFormItems.push(action.payload);
+    },
+    delDocItems: (state, action: PayloadAction<number>) => {
+      const data = state.dataFormItems.filter(
+        (item: { data: string; id: number }) => item.id !== action.payload,
+      );
 
-		const data =  state.dataFormItems.filter((item: { data: string, id: number }) =>item.id !== action.payload)
-		
-		state.dataFormItems = data;
-	},
-	  delDocItemsAll: (state) => { 
-		state.dataFormItems = [];
-	}
+      state.dataFormItems = data;
+    },
+    delDocItemsAll: (state) => {
+      state.dataFormItems = [];
+    },
   },
 
   extraReducers: (builder) => {
@@ -39,24 +51,40 @@ export const docSlice = createSlice({
       state.items = [];
     });
     builder.addCase(fetchDoc.fulfilled, (state, action: PayloadAction<any>) => {
-      state.items = action.payload;
+      state.items = action.payload.document;
+      if (!state.categories.length) {
+        state.categories = action.payload.document_categories;
+      }
       state.status = 'success';
     });
     builder.addCase(fetchDoc.rejected, (state) => {
       state.status = 'error';
       state.items = [];
     });
-
-    //========================================================================================================================================================
+    //==================================================================
+    builder.addCase(fetchDocumentCategories.pending, (state) => {
+      state.status = 'loading';
+      state.items = [];
+    });
+    builder.addCase(fetchDocumentCategories.fulfilled, (state, action: PayloadAction<any>) => {
+      if (!state.categories.length) {
+        state.categories = action.payload.document_categories;
+      }
+      state.status = 'success';
+    });
+    builder.addCase(fetchDocumentCategories.rejected, (state) => {
+      state.status = 'error';
+      state.items = [];
+    });
+    //================================================================
 
     builder.addCase(fetchCreateDoc.pending, (state) => {
       state.status = 'loading';
-        state.items = [];
+      state.items = [];
     });
-	  builder.addCase(fetchCreateDoc.fulfilled, (state, action: PayloadAction<any>) => {
-		
-		state.items = action.payload;
-		state.status = 'success';
+    builder.addCase(fetchCreateDoc.fulfilled, (state, action: PayloadAction<any>) => {
+      state.items = action.payload;
+      state.status = 'success';
     });
     builder.addCase(fetchCreateDoc.rejected, (state, action: PayloadAction<any>) => {
       state.status = 'error';
@@ -64,69 +92,92 @@ export const docSlice = createSlice({
 
       state.errorMessage = action.payload.message;
       // state.items = [];
-	});
-	  //?==================================================================================
-	  builder.addCase(fetchDocTimeTable.pending, (state) => {
-		state.status = 'loading';
-		state.items = [];
-	  });
-	  builder.addCase(fetchDocTimeTable.fulfilled, (state, action: PayloadAction<any>) => {
-		state.items = action.payload;
-		state.status = 'success';
-	  });
-	  builder.addCase(fetchDocTimeTable.rejected, (state) => {
-		state.status = 'error';
-		state.items = [];
-	  });
-	  
-	  builder.addCase(fetchCreateDocTimeTable.pending, (state) => {
-		state.status = 'loading';
-		//   state.items = [];
-	  });
-	  builder.addCase(fetchCreateDocTimeTable.fulfilled, (state, action: PayloadAction<any>) => {
-		if (state.items) {
-		  state.items.push(action.payload as any);
-		}
-		state.status = 'success';
-	  });
-	  builder.addCase(fetchCreateDocTimeTable.rejected, (state, action: PayloadAction<any>) => {
-		state.status = 'error';
-		console.log(action.payload.message);
-		state.errorMessage = action.payload.message;
-		// state.items = [];
-	  });
-	  //?=====================================================================================================
-	  builder.addCase(fetchDocCircle.pending, (state) => {
-		state.status = 'loading';
-		state.items = [];
-	  });
-	  builder.addCase(fetchDocCircle.fulfilled, (state, action: PayloadAction<any>) => {
-		state.items = action.payload;
-		state.status = 'success';
-	  });
-	  builder.addCase(fetchDocCircle.rejected, (state) => {
-		state.status = 'error';
-		state.items = [];
-	  });
-	  
-	  builder.addCase(fetchCreateDocCircle.pending, (state) => {
-		state.status = 'loading';
-		//   state.items = [];
-	  });
-	  builder.addCase(fetchCreateDocCircle.fulfilled, (state, action: PayloadAction<any>) => {
-		if (state.items) {
-		  state.items.push(action.payload as any);
-		}
-		state.status = 'success';
-	  });
-	  builder.addCase(fetchCreateDocCircle.rejected, (state, action: PayloadAction<any>) => {
-		state.status = 'error';
-		console.log(action.payload.message);
-		state.errorMessage = action.payload.message;
-		// state.items = [];
-	  });
+    });
+    //==================================================================
+    builder.addCase(fetchCreateDocumentCategories.pending, (state) => {
+      state.status = 'loading';
+      state.items = [];
+    });
+    builder.addCase(
+      fetchCreateDocumentCategories.fulfilled,
+      (state, action: PayloadAction<any>) => {
+        state.categories = [...state.categories, ...action.payload.document_categories];
+        console.log('fetchCreateDocumentCategories', action.payload);
+
+        // state.status = 'success';
+      },
+    );
+    builder.addCase(fetchCreateDocumentCategories.rejected, (state, action: PayloadAction<any>) => {
+      state.status = 'error';
+      console.log(action.payload.message);
+
+      state.errorMessage = action.payload.message;
+      // state.items = [];
+    });
+    //================================================================================
+
+    builder.addCase(fetchDocTimeTable.pending, (state) => {
+      state.status = 'loading';
+      state.items = [];
+    });
+    builder.addCase(fetchDocTimeTable.fulfilled, (state, action: PayloadAction<any>) => {
+      state.items = action.payload;
+      state.status = 'success';
+    });
+    builder.addCase(fetchDocTimeTable.rejected, (state) => {
+      state.status = 'error';
+      state.items = [];
+    });
+
+    builder.addCase(fetchCreateDocTimeTable.pending, (state) => {
+      state.status = 'loading';
+      //   state.items = [];
+    });
+    builder.addCase(fetchCreateDocTimeTable.fulfilled, (state, action: PayloadAction<any>) => {
+      if (state.items) {
+        state.items.push(action.payload as any);
+      }
+      state.status = 'success';
+    });
+    builder.addCase(fetchCreateDocTimeTable.rejected, (state, action: PayloadAction<any>) => {
+      state.status = 'error';
+      console.log(action.payload.message);
+      state.errorMessage = action.payload.message;
+      // state.items = [];
+    });
+    //?=====================================================================================================
+    builder.addCase(fetchDocCircle.pending, (state) => {
+      state.status = 'loading';
+      state.items = [];
+    });
+    builder.addCase(fetchDocCircle.fulfilled, (state, action: PayloadAction<any>) => {
+      state.items = action.payload;
+      state.status = 'success';
+    });
+    builder.addCase(fetchDocCircle.rejected, (state) => {
+      state.status = 'error';
+      state.items = [];
+    });
+
+    builder.addCase(fetchCreateDocCircle.pending, (state) => {
+      state.status = 'loading';
+      //   state.items = [];
+    });
+    builder.addCase(fetchCreateDocCircle.fulfilled, (state, action: PayloadAction<any>) => {
+      if (state.items) {
+        state.items.push(action.payload as any);
+      }
+      state.status = 'success';
+    });
+    builder.addCase(fetchCreateDocCircle.rejected, (state, action: PayloadAction<any>) => {
+      state.status = 'error';
+      console.log(action.payload.message);
+      state.errorMessage = action.payload.message;
+      // state.items = [];
+    });
   },
 });
 
-export const { setItems,getError, setFormItemsDoc, delDocItemsAll, delDocItems } = docSlice.actions;
+export const { setItems, getError, setFormItemsDoc, delDocItemsAll, delDocItems } =
+  docSlice.actions;
 export default docSlice.reducer;

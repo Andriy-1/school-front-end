@@ -50,7 +50,7 @@ const withFileComponent: HOC = (Component) => {
 
 		React.useEffect(() => {
 			if (location.pathname === '/document') {
-				dispatch(fetchDoc());
+				dispatch(fetchDoc(''));
 			} else if (location.pathname === '/education/timetable') {
 				dispatch(fetchDocTimeTable());
 			} else if (location.pathname === '/education/circle') {

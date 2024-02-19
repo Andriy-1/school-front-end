@@ -34,7 +34,7 @@ const DocumentItem: React.FC<ct> = ({ id, active, handleSwitch, index, title, fi
 	const handleClickDel = () => {
 		dispatch(fetchDeleteDoc(id));
 		setTimeout(() => {
-			dispatch(fetchDoc());
+			dispatch(fetchDoc(''));
 		}, 100);
 	};
 

@@ -181,3 +181,41 @@
 		letter-spacing: 0.1rem;
 	}
 }
+
+.dev-text{
+	input{
+		font-size: 12px;
+			letter-spacing: 0.1rem;
+	}
+}
+.dev-btn{
+	display: inline-block;
+	margin-left: 10px;
+	margin-top: 5px;
+	color: white;
+	border: 1px solid white;
+	padding: 10px;
+	border-radius: 20px;
+}
+.dev-btn-opac{
+	opacity: 0.5;
+	&:hover{
+		opacity: 1;
+	}
+}
+.dev-click{
+	background-color: transparent !important;
+	cursor: pointer;
+	&:hover{
+		background-color: #d7d7d7;
+	}
+}
+.dev-form{
+	display: flex;
+	align-items: center;
+}
+.dev-flex{
+	// display: flex;
+	// flex-direction: column;
+	gap: 5px;
+}
