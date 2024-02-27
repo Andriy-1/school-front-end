@@ -57,7 +57,7 @@ const TitleBlock: React.FC<StyleProps> = ({ text, title }) => {
 						<li className=" list-contact__item">
 							<a target={'_blank'} rel={'noreferrer'} href="mailto:school.kopatchentci@ukr.ukr">
 								<HiMail className="list-contact__icon" />
-								school.kopatchentci@ukr.net
+								school.kopachyntsi@ukr.net
 							</a>
 
 							<a href="tel:+38(096)932-40-34">
