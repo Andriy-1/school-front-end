@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
 import { setValid } from '../redux/news/slice';
 import { selectAuth } from '../redux/auth/select';
 import { Helmet } from 'react-helmet';
+import PostCards from '../components/Post';
 
 const News: React.FC = () => {
 	
@@ -176,14 +177,15 @@ const News: React.FC = () => {
 			)
 				: <></>
 			}
-			{status === 'success'
+			<PostCards/>
+			{/* {status === 'success'
 				? clickBnt
 					? switchItems(items ? items : [])
 					: switchItems(threeItems)
 				: skeletonElement()}
 			{!clickBnt && items
 				? items.length > 3 && <ButtonBlock onClickReset={onClickReset} handleClickBtn={handleClickBtn} />
-				: ''}
+				: ''} */}
 		</>
 	);
 };
