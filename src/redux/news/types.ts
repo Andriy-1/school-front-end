@@ -1,4 +1,4 @@
-import { AllData } from '../../components/types';
+import { AllData, NewsCategories } from '../../components/types';
 
 export type NewsItem = {
   id: string;
@@ -9,13 +9,14 @@ export type NewsItem = {
 
 export interface NewsSliceState {
   items: AllData[] | null;
+  categories: NewsCategories[] | null;
   status: string;
   likeCount: number;
   viewsCount: number;
   views: [number?];
-	validate: Validate;
-	isLiked: boolean;
-	toast: null | any;
+  validate: Validate;
+  isLiked: boolean;
+  toast: null | any;
 }
 
 export type getIdStorage = {

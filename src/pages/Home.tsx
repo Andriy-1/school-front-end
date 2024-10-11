@@ -24,8 +24,8 @@ const Home: React.FC = () => {
 	const defaultData = useAppSelector(selectDefaultData);
 
 	React.useEffect(() => {
-		
-		dispatch(fetchNewsThree());
+
+		// dispatch(fetchNewsThree());
 		startTransition(() => {
 			dispatch(fetchGallery());
 		});
@@ -34,19 +34,19 @@ const Home: React.FC = () => {
 		<>
 			<FullScreen />
 			<Helmet>
-				<title>Копачинці - Головна</title>
+				<title>ХХX - Головна</title>
 			</Helmet>
 			<Title />
 			<Card photoWebp={photoWebpOne} photoJpg={photoJpgOne} text={defaultData[0]} title={defaultData[1]} />
-			<Card  photoWebp={photoWebpTwo} photoJpg={photoJpgTwo} isAddBolean={true} text={defaultData[2]} title={defaultData[3]} />
+			<Card photoWebp={photoWebpTwo} photoJpg={photoJpgTwo} isAddBolean={true} text={defaultData[2]} title={defaultData[3]} />
 			{itemsNews?.length ? (
 				<><Title isAddBolean={true} />
 					<MiniCardNews />
 				</>
 			) : ''
 			}
-			<Suspense fallback={<Loader/>}><Gallery /></Suspense>
-			
+			<Suspense fallback={<Loader />}><Gallery /></Suspense>
+
 		</>
 	);
 };

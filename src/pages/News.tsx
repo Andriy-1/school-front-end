@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { TextField } from '@mui/material';
+import qs from 'qs';
 
 import Title from '../components/BlockTiitle/Title';
 import ButtonBlock from '../components/button/ButtonBlock';
@@ -11,29 +12,36 @@ import NewsSkeleton from '../components/news/Skeleton';
 
 import { AllData } from '../components/types';
 
-import { fetchCreateNews, fetchNews } from '../redux/news/thunk';
+import { fetchCategoryNews, fetchCreateNews, fetchNews } from '../redux/news/thunk';
 import { selectNews } from '../redux/news/select';
 import { useAppDispatch, useAppSelector } from '../redux/app/hooks';
-import { setValid } from '../redux/news/slice';
+import { setValid, setZeroItems } from '../redux/news/slice';
 import { selectAuth } from '../redux/auth/select';
 import { Helmet } from 'react-helmet';
 import PostCards from '../components/Post';
 
 const News: React.FC = () => {
-	
+
 	const dispatch = useAppDispatch();
 	const isAuth = useAppSelector(selectAuth);
+	const location = useLocation();
+
 	const { items, status, validate } = useAppSelector(selectNews);
 
 	const [clickBnt, setClickBnt] = useState(false);
 	const [deleteCard, setDeleteCard] = React.useState(false);
 	const [wayToPhoto, setWayToPhoto] = React.useState('');
 
-	const threeItems = items ? items.slice(0, 3) : [];
+	// const threeItems = items ? items?.slice(0, 3) : [];
 	const inputRef = React.useRef<any>(null);
 
 	const [isReset, setIsReset] = React.useState<boolean>(false);
 
+	// Парсинг запиту
+	const searchParams = new URLSearchParams(location.search);
+	const categoriesId = searchParams.get('categories_id');
+
+	const categoriesIdNumber: number | undefined = categoriesId ? Number(categoriesId) : undefined;
 
 	const { register, handleSubmit, setValue } = useForm({
 		defaultValues: {
@@ -43,18 +51,22 @@ const News: React.FC = () => {
 		},
 		mode: 'onChange',
 	});
-	
-	React.useEffect(() => {
-		dispatch(fetchNews());
-		window.scroll(0, 0);
-	}, [dispatch]);
 
-	
+	React.useEffect(() => {
+		if (categoriesIdNumber) {
+			dispatch(fetchCategoryNews(categoriesIdNumber));
+		}
+		// dispatch(fetchNews());
+		window.scroll(0, 0);
+		return () => {
+			dispatch(setZeroItems())
+		 }
+	}, [categoriesIdNumber, dispatch]);
+
 	const handleClickBtn = () => {
 		dispatch(fetchNews());
 		setClickBnt(true);
 	};
-
 
 	const switchItems = (element: AllData[]) => {
 		return element && element.map((item) => <CardNews isReset={isReset} key={item.id} {...item} />);
@@ -101,12 +113,12 @@ const News: React.FC = () => {
 	};
 	const onClickReset = () => {
 		setIsReset(true);
-		setTimeout(() => { setIsReset(false)},1000)
+		setTimeout(() => { setIsReset(false) }, 1000)
 	}
-	
+
 	return (
 		<>
-			<Title isAddBolean={true} items={items} status={status} />
+			{/* <Title isAddBolean={true} items={items} status={status} /> */}
 			<Helmet>
 				<title>Новини</title>
 			</Helmet>
@@ -177,15 +189,12 @@ const News: React.FC = () => {
 			)
 				: <></>
 			}
-			<PostCards/>
-			{/* {status === 'success'
-				? clickBnt
-					? switchItems(items ? items : [])
-					: switchItems(threeItems)
-				: skeletonElement()}
-			{!clickBnt && items
-				? items.length > 3 && <ButtonBlock onClickReset={onClickReset} handleClickBtn={handleClickBtn} />
-				: ''} */}
+			<PostCards />
+			<div className="section-news-card-column">
+			{switchItems(items ? items : [])}
+			</div>
+			{/* {status === 'success' ? clickBnt ? switchItems(items ? items : []) : switchItems(threeItems) : skeletonElement()} {!clickBnt && items ? items.length > 3 && <ButtonBlock onClickReset={onClickReset} handleClickBtn={handleClickBtn} /> : ''} */}
+
 		</>
 	);
 };

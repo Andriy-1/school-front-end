@@ -13,8 +13,9 @@ import { AllData } from '../types';
 import { baseUrl } from '../../api';
 import { Helmet } from 'react-helmet';
 import classNames from 'classnames';
+import { BsArrowRightCircleFill } from 'react-icons/bs';
 
-const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likecount, viewscount, isReset }) => {
+const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likeCount, viewsCount, isReset }) => {
 	const dispatch = useAppDispatch();
 	const [click, setClick] = React.useState(false);
 	const isAuth = useAppSelector(selectAuth);
@@ -49,6 +50,15 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likecount, vie
 		setTimeout(() => {
 			dispatch(fetchNews());
 		}, 100);
+	};
+
+	const truncateText = (text: string, maxWords: number) => {
+		const words = text.split('');
+		if (words.length > maxWords) {
+			const truncatedText = words.slice(0, maxWords).join('');
+			return `${truncatedText}...`;
+		}
+		return text;
 	};
 	//========================================================================================================================================================
 	// Стан лайків
@@ -116,7 +126,8 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likecount, vie
 			<Helmet>
 				<meta property="og:title" content={title} />
 				<meta property="og:description" content={text} />
-				<meta property="og:image" content={baseUrl + imageUrl} />
+				{/* <meta property="og:image" content={baseUrl + imageUrl} /> */}
+				{/* {imageUrl && imageUrl.map((img: string) => <meta key={img} property="og:image" content={baseUrl + img} />)} */}
 				<meta property="og:url" content="https://kopachyntsi.if.ua/news"></meta>
 			</Helmet>
 			<div
@@ -130,10 +141,10 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likecount, vie
 						</Link>
 					</>
 				)}
-				<div className="section-news-card__photo">
-					<img src={baseUrl + imageUrl} alt="news" className="section-news-card__img" />
+				{imageUrl && imageUrl.map((img: string) => <div key={img} className="section-news-card__photo">
+					<img src={baseUrl + img} alt="news" className="section-news-card__img" />
 
-				</div>
+				</div>)}
 
 				<div className="section-news-card__block">
 					<div onClick={() => setClick(!click)} className="section-news-card__share">
@@ -143,7 +154,10 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likecount, vie
 
 					<div className="section-news-card__content">
 						<h4 className="section-news-card__title title">{title}</h4>
-						<p className="section-news-card__subtitle">{text}</p>
+
+						<p className="section-news-card__subtitle">{truncateText(text, 100)}</p>
+						<Link to={`${id}`} className='section-news-card__more_btn'> <span> Читати більше <BsArrowRightCircleFill /></span></Link>
+
 
 						<div className="section-news-card__info info-card-news">
 							<div className="info-card-news__block">
@@ -153,11 +167,11 @@ const CardNews: React.FC<AllData> = ({ id, text, title, imageUrl, likecount, vie
 									<LuEye
 										stroke='black'
 										className='info-card-news__svg svg-views-news-dims' />
-									<span>{viewscount}</span>
+									<span>{viewsCount}</span>
 								</div>
 							</div>
 							<div onClick={() => { handleLikeClick(id) }} className="info-card-news__likes">
-								<span>{likecount ? likecount : ''}</span>
+								<span>{likeCount ? likeCount : ''}</span>
 								<button className={classNames('like', { 'liked': isLiked }, { 'unliked': !isLiked })}>
 									<span className="like-icon like-icon-state" aria-label="state">
 									</span>

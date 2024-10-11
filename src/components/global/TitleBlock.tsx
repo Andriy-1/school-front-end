@@ -28,7 +28,7 @@ const TitleBlock: React.FC<StyleProps> = ({ text, title }) => {
 							<address>вулиця Вільна Україна, 33</address>
 						</li>
 						<li className=" list-contact__item">
-							<address>с. Копачинці Коломийський район Івано-Франківська область</address>
+							<address>с. ХХX Коломийський район Івано-Франківська область</address>
 							<span>Поштовий індекс: 78110</span>
 						</li>
 						<li className=" list-contact__item">

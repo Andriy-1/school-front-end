@@ -8,7 +8,7 @@ const Footer = () => {
 				<div className="footer__column column-footer">
 					<div className="column-footer__logo logo">
 						<Link to={'/'} className="column-footer__box-logo logo__box">
-							<h3 className="column-footer__text-logo logo__text">Копачинська гімназія</h3>
+							<h3 className="column-footer__text-logo logo__text">ХХX гімназія</h3>
 						</Link>
 					</div>
 				</div>
@@ -82,7 +82,7 @@ const Footer = () => {
 						<ul className="column-footer__list list-contact">
 							<li className="column-footer__item">вулиця Вільна Україна, 33</li>
 							<li className="column-footer__item">
-								с. Копачинці Коломийський район Івано-Франківська область 78110
+								с. ХХX Коломийський район Івано-Франківська область 78110
 							</li>
 							<li className="column-footer__item">
 								<Link to={''}>(034-30) 67-2-09 </Link>

@@ -243,7 +243,6 @@ body {
 		}
 		@media (max-width:#{$md3 + px}) {
 			font-size: 14px;
-			
 		}
 		span {
 			text-transform: uppercase !important;
@@ -380,8 +379,8 @@ body {
 	&__button {
 		animation: card-content-animate 1.3s ease-out;
 		max-width: 50rem;
-		@media (max-width:#{$md3 + px}){
-			  font-size: 2.3rem;
+		@media (max-width:#{$md3 + px}) {
+			font-size: 2.3rem;
 		}
 	}
 }
@@ -399,7 +398,6 @@ body {
 //Card_News====================================================================================================================================================
 .card-news {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 	gap: 4rem;
 	position: relative;
@@ -760,64 +758,87 @@ body {
 }
 
 //========================================================================================================================================================
+
+// .section-news-card__photo:hover + .section-news-card__block {
+// 	transform: translateY(0rem);
+// }
 .section-news-card {
+	max-width: 50rem;
 	animation: card-content-animate 1.3s ease-out;
 	position: relative;
-	width: 79%;
-	margin: 2rem auto;
-	display: flex;
+	margin: 2rem 0.5rem;
+
 	&__row {
+		max-width: inherit;
 		&::before {
 			content: " ";
 			@include position-block(absolute, 0, 0);
 			z-index: -1;
 			width: 100%;
 			height: 100%;
-			background-color: $white-transparent;
+			background-color: rgba(255, 255, 255, 1);
 			box-shadow: 0rem 0rem 0.5rem rgba(154, 154, 154, 0.6);
-			filter: blur(0.2rem);
+			border-radius: 1.5rem;
+			filter: blur(0.1rem);
 		}
-		width: 100%;
-		height: 50%;
-		display: flex;
-		flex-wrap: wrap;
 	}
 	&__photo {
+		width: 100%;
+		height: 32rem;
 		min-height: 7rem;
 		position: relative;
-		min-width: 45rem;
-		flex: 1 1 20rem;
+		min-width: 18rem;
+		overflow: hidden;
+		flex: 1 1 25%;
+		cursor: pointer;
 	}
 	&__img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+		border-top-left-radius: 1.5rem;
+		border-top-right-radius: 1.5rem;
 	}
 	&__block {
-		width: 100%;
-		height: auto;
-		flex: 1 1 45rem;
-		padding: 3rem 5rem;
+		padding: 3rem 2rem;
 		position: relative;
+
+		// transition: all 0.3s ease-in 0s;
+		// transform: translateY(-5rem);
+		width: 100%;
+		// &::before {
+		// 	content: " ";
+		// 	@include position-block(absolute, 0, 0);
+		// 	z-index: 1;
+		// 	width: 100%;
+		// 	height: 100%;
+		// 	background-color: rgba(255, 255, 255, 1);
+		// 	// box-shadow: 0rem 0rem 1rem rgba(154, 154, 154, 1);
+		// 	border-bottom-left-radius: 1.5rem;
+		// 	border-bottom-right-radius: 1.5rem;
+		// 	// filter: blur(0.2rem);
+		// }
 	}
 	&__share {
 		cursor: pointer;
 		position: absolute;
-		top: 3rem;
-		right: 3rem;
+		z-index: 3;
+		top: 2rem;
+		right: 2rem;
 	}
 	&__content {
+		position: relative;
+		z-index: 2;
 		min-height: 25rem;
 		width: 100%;
 		height: 100%;
 		display: flex;
 		flex-direction: column;
-
 		gap: 2rem;
 	}
 	&__title {
 		display: inline;
-		margin: 2rem 0 0 0;
+		margin: 1rem 0 0 0;
 		text-align: start !important;
 		font-size: 3.5rem;
 		font-weight: 700;
@@ -845,6 +866,25 @@ body {
 		flex-direction: column !important;
 		justify-content: center !important;
 		color: #000000 !important;
+	}
+	&__more_btn {
+		display: inline;
+		margin: 0 1.5rem 0 0;
+		color: #fff !important;
+		text-align: right;
+		span {
+			cursor: pointer;
+			display: inline-flex;
+			align-items: center;
+			gap: 1rem;
+			background: $color_title-white-blue;
+			border-radius: 2rem;
+			padding: 0.6rem 1.5rem;
+			transition: all 0.3s ease 0s;
+			&:hover {
+				transform: scale(1.02);
+			}
+		}
 	}
 	&__discription {
 	}
@@ -893,6 +933,13 @@ body {
 		font-size: 1.6rem;
 	}
 }
+.section-news-card-column {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
 
 //========================================================================================================================================================
 
@@ -935,8 +982,8 @@ body {
 		transform: scale(1.04);
 		box-shadow: 0px 2rem 2rem $color_after_gradient;
 	}
-	@media (max-width:#{$md4 + px}){
-		background-color: $color_after_gradient; 
+	@media (max-width:#{$md4 + px}) {
+		background-color: $color_after_gradient;
 		box-shadow: 0px 1rem 1rem $color_after_gradient;
 		&:hover {
 			background-color: none;

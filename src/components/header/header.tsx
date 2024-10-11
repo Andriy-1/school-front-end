@@ -64,7 +64,7 @@ const Header = () => {
 								</g>
 							</g>
 						</svg>
-						<h3 className="logo__text">Копачинці</h3>
+						<h3 className="logo__text">ХХX</h3>
 					</Link>
 				</div>
 				<div className="header__row ">
@@ -85,7 +85,7 @@ const Header = () => {
 								</li>
 								<li className="items__item">
 									<Link to={'/news'}>
-										<span>Новини</span>
+										<span>Публікації</span>
 										<BiNews className="global-icon" />
 									</Link>
 								</li>

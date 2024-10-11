@@ -42,7 +42,6 @@ const MiniCardNews: React.FC = () => {
 									<div className="news-card__background">
 										<img src={baseUrl + item.imageUrl} alt="card-news" className="news-card__img" />
 									</div>
-
 									<div className="news-card__content">
 										<div className="news-card__data">
 											<span>{[mouthNameBig, '-', day, '-', year]}</span>
@@ -58,10 +57,10 @@ const MiniCardNews: React.FC = () => {
 											<div className="news-card__blcok-icon">
 												<div className="news-card__icon">
 													<LuEye className='info-card-news__svg svg-views-news-dims' />
-													<span>{item.viewscount}</span>
+													<span>{item.viewsCount}</span>
 												</div>
 												<div className="news-card__icon">
-													<span>{item.likecount}</span>
+													<span>{item.likeCount}</span>
 													<button
 														className={classNames('like', { 'unliked': true }, )}>
 														<span className="like-icon like-icon-state" aria-label="state">

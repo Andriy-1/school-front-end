@@ -1,17 +1,47 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import CardCategory from './Categories';
+import { useNavigate } from 'react-router-dom';
+import qs from 'qs';
+import { selectNewsCategories } from '../../redux/news/select';
+import { useAppDispatch, useAppSelector } from '../../redux/app/hooks';
+import { fetchNewsCategories } from '../../redux/news/thunk';
 
-type itemsCategory = {
-	id: number,
-	title: string,
-}
 
 const PostCards: React.FC<any> = (props) => {
-	const items: itemsCategory[] = [{ id: 1, title: "Привіт новинни" }, { id: 3, title: "Привіт новинни" }, { id: 2, title: "Привіт новинни" }, { id: 4, title: "Привіт новинни" }, { id: 5, title: "Привіт новинни" },{ id: 6, title: "Привіт новинни" }]
+	const newsCategories = useAppSelector(selectNewsCategories);
+	console.log('newsCategories', newsCategories);
+
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(fetchNewsCategories())
+
+	}, [dispatch])
+
+
+	const clickCategory = useCallback(
+		(id: number): void => {
+
+			const queryString = qs.stringify({
+				categories_id: id,
+			});
+			navigate(`?${queryString}`);
+		},
+		[navigate],
+	)
 	return (
-		<div className=' post-category'>
-			{items.map((item) => <CardCategory title={item.title} />)}
+		<div>
+			<ul className=' post-category'>
+				{newsCategories?.map((item) => <CardCategory
+					key={item.id} // Важливо додати унікальний ключ для кожного елемента
+					id={item.id}
+					clickCategory={clickCategory}
+					title={item.title}
+				/>)}
+			</ul>
 		</div>
+
 	)
 }
 

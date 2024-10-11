@@ -25,15 +25,27 @@ export type AllData = {
   id: number;
   title: string;
   text: string;
-  viewscount?: number;
-  likecount?: number;
+  viewsCount?: number;
+  likeCount?: number;
   user_id: number;
-  imageUrl: string;
+  imageUrl: string[];
   created_at?: DataView;
-  updateLikes: void;
+  updateLikes?: void;
   isReset?: boolean;
+  postCategories_id?: number;
+  published?: boolean;
 };
 export type AllDataAction = {
   post: AllData;
   message: string;
 };
+
+export type NewsCategories = {
+  id: number;
+  title: string;
+};
+
+export type ActionFetchNews = {
+	posts: AllData[];
+	message: string;
+}
