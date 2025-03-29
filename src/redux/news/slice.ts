@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ActionFetchNews, AllData, AllDataAction, NewsCategories } from '../../components/types';
+import { AllData, AllDataAction, NewsCategories } from '../../components/types';
 import {
   fetchCategoryNews,
   fetchCreateNews,
   fetchNews,
   fetchNewsCategories,
+  fetchNewsOne,
   fetchNewsThree,
   fetchUpdateNewsLikes,
 } from './thunk';
-import { getIdStorage, NewsSliceState } from './types';
+import { getIdStorage, NewsPostOne, NewsSliceState } from './types';
 import { toast } from 'react-toastify';
 
 const initialState: NewsSliceState = {
   items: [],
+  item: null,
   categories: [],
   status: 'loading',
   likeCount: 0,
@@ -59,7 +61,6 @@ export const newsSlice = createSlice({
       }
     },
   },
-
   extraReducers: (builder) => {
     builder.addCase(fetchNews.pending, (state) => {
       state.status = 'loading';
@@ -83,6 +84,19 @@ export const newsSlice = createSlice({
       state.status = 'success';
     });
     builder.addCase(fetchNewsThree.rejected, (state) => {
+      state.status = 'error';
+      state.items = [];
+    }); //========================================================================================================================================================
+
+    builder.addCase(fetchNewsOne.pending, (state) => {
+      state.status = 'loading';
+      state.items = [];
+    });
+	  builder.addCase(fetchNewsOne.fulfilled, (state, action: PayloadAction<NewsPostOne>) => {
+      state.item = action.payload.post;
+      state.status = 'success';
+    });
+    builder.addCase(fetchNewsOne.rejected, (state) => {
       state.status = 'error';
       state.items = [];
     }); //========================================================================================================================================================

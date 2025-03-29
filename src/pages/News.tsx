@@ -4,13 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import qs from 'qs';
 
-import Title from '../components/BlockTiitle/Title';
-import ButtonBlock from '../components/button/ButtonBlock';
-import CardNews from '../components/news';
-import CoverContent from '../components/news/CoverContent';
-import NewsSkeleton from '../components/news/Skeleton';
-
-import { AllData } from '../components/types';
 
 import { fetchCategoryNews, fetchCreateNews, fetchNews } from '../redux/news/thunk';
 import { selectNews } from '../redux/news/select';
@@ -26,7 +19,7 @@ const News: React.FC = () => {
 	const isAuth = useAppSelector(selectAuth);
 	const location = useLocation();
 
-	const { items, status, validate } = useAppSelector(selectNews);
+	const { status, validate } = useAppSelector(selectNews);
 
 	const [clickBnt, setClickBnt] = useState(false);
 	const [deleteCard, setDeleteCard] = React.useState(false);
@@ -35,7 +28,7 @@ const News: React.FC = () => {
 	// const threeItems = items ? items?.slice(0, 3) : [];
 	const inputRef = React.useRef<any>(null);
 
-	const [isReset, setIsReset] = React.useState<boolean>(false);
+
 
 	// Парсинг запиту
 	const searchParams = new URLSearchParams(location.search);
@@ -59,8 +52,8 @@ const News: React.FC = () => {
 		// dispatch(fetchNews());
 		window.scroll(0, 0);
 		return () => {
-			dispatch(setZeroItems())
-		 }
+			// dispatch(setZeroItems())
+		}
 	}, [categoriesIdNumber, dispatch]);
 
 	const handleClickBtn = () => {
@@ -68,16 +61,7 @@ const News: React.FC = () => {
 		setClickBnt(true);
 	};
 
-	const switchItems = (element: AllData[]) => {
-		return element && element.map((item) => <CardNews isReset={isReset} key={item.id} {...item} />);
-	};
-	const skeletonElement = (element = [1, 2, 3]) => {
-		return element.map((_, index) => (
-			<div key={index} className="f-center">
-				<NewsSkeleton />
-			</div>
-		));
-	};
+	;
 
 	const handleFileUpload = (event: any) => {
 		const file = event.target.files[0];
@@ -111,19 +95,16 @@ const News: React.FC = () => {
 			alert('Помилка. Файл не завантажено');
 		}
 	};
-	const onClickReset = () => {
-		setIsReset(true);
-		setTimeout(() => { setIsReset(false) }, 1000)
-	}
+
 
 	return (
-		<>
+		<div className='cover-news'>
 			{/* <Title isAddBolean={true} items={items} status={status} /> */}
 			<Helmet>
 				<title>Новини</title>
 			</Helmet>
-			<CoverContent />
-			{isAuth ? (
+			{/* <CoverContent /> */}
+			{/* {isAuth ? (
 				<section className="section-news-card">
 					<form
 						onSubmit={handleSubmit(onSubmit)}
@@ -188,14 +169,10 @@ const News: React.FC = () => {
 				</section>
 			)
 				: <></>
-			}
+			} */}
 			<PostCards />
-			<div className="section-news-card-column">
-			{switchItems(items ? items : [])}
-			</div>
 			{/* {status === 'success' ? clickBnt ? switchItems(items ? items : []) : switchItems(threeItems) : skeletonElement()} {!clickBnt && items ? items.length > 3 && <ButtonBlock onClickReset={onClickReset} handleClickBtn={handleClickBtn} /> : ''} */}
-
-		</>
+		</div>
 	);
 };
 

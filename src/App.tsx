@@ -13,6 +13,7 @@ import Circle from './pages/Education/Circle';
 import Timetable from './pages/Education/Timetable';
 import Document from './pages/Document';
 import Card from './components/card/Card';
+import CardNews from './components/Post/CardMore';
 
 function App() {
 	const dispatch = useAppDispatch();
@@ -32,7 +33,7 @@ function App() {
 				<Route path="/" element={<Home />} />
 				<Route path="about" element={<About />} />
 				<Route path="news" element={<News />} />
-				<Route path="news/:id" element={1} />
+				<Route path="news/:id" element={<CardNews />} />
 				<Route path="education/timetable" element={<Timetable />} />
 				<Route path="education/circle" element={<Circle />} />
 				<Route path="document" element={<Document />} />

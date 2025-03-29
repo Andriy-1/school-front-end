@@ -3,6 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import instanse from '../../api';
 import { AllData, NewsCategories } from '../../components/types';
 import { RootState } from '../store';
+import { NewsPostOne } from './types';
 
 //News Categories
 export const fetchNewsCategories = createAsyncThunk<NewsCategories[], void, { state: RootState }>(
@@ -37,6 +38,15 @@ export const fetchNewsThree = createAsyncThunk<AllData[], void, { state: RootSta
     return data;
   },
 );
+
+//News
+export const fetchNewsOne = createAsyncThunk<NewsPostOne, string, { state: RootState }>(
+	'news/fetchNewsOne',
+	async (id) => {
+	  const { data } = await instanse.get<NewsPostOne>(`/posts/${id}`);
+	  return data;
+	},
+  );
 export const fetchUpdateNews = createAsyncThunk<any, any, { state: RootState }>(
   'news/fetchUpdateNews',
   async (params) => {

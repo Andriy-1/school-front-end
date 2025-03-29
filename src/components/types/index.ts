@@ -27,7 +27,7 @@ export type AllData = {
   text: string;
   viewsCount?: number;
   likeCount?: number;
-  user_id: number;
+  user_id?: number;
   imageUrl: string[];
   created_at?: DataView;
   updateLikes?: void;

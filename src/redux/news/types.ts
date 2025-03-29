@@ -6,9 +6,14 @@ export type NewsItem = {
   title: string;
   views?: [string];
 };
+export type NewsPostOne = {
+	post: AllData;  
+	success: boolean;  
+  };
 
 export interface NewsSliceState {
   items: AllData[] | null;
+  item?: AllData | null;
   categories: NewsCategories[] | null;
   status: string;
   likeCount: number;
