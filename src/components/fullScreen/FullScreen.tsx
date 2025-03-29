@@ -1,6 +1,6 @@
 import React from 'react';
 
-const videoMp4 = require('../../img/video_new.mp4');
+const videoMp4 = require('../../img/fullscreen_2025.MP4');
 
 const FullScreen: React.FC = () => {
 
