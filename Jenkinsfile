@@ -14,15 +14,15 @@ pipeline {
         stage('Delete Docker Container') {
             steps {
                 script {
-                    sh 'docker stop frontend-jenkins'
-                    sh 'docker rm frontend-jenkins'
+                    sh 'docker stop frontend-jenkins || true'
+					sh 'docker rm frontend-jenkins || true'
                 }
             }
         }
         stage('Delete Docker Image') {
             steps {
                 script {
-                    sh 'docker image rm andriyhomee/school_frontend'
+                    sh 'docker image rm andriyhomee/school_frontend || true'
                 }
             }
         }
